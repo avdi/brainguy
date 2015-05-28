@@ -12,11 +12,15 @@ class SatelliteOfLove
   end
 
   def send_the_movie
-    @handlers[:movie_sign].each(&:call)
+    @handlers[:movie_sign].each do |handler|
+      handler.call(self)
+    end
   end
 
   def disconnect
-    @handlers[:power_out].each(&:call)
+    @handlers[:power_out].each do |handler|
+      handler.call(self)
+    end
   end
 end
 
@@ -60,5 +64,22 @@ RSpec.describe Brainguy do
     expect(crow).to_not have_received(:loot)
     sol.disconnect
     expect(crow).to have_received(:loot)
+  end
+
+  it "allows for zero subscribers" do
+    sol = SatelliteOfLove.new
+    expect { sol.send_the_movie }.to_not raise_error
+  end
+
+  it "passes the event emitting object to handler blocks" do
+    sol = SatelliteOfLove.new
+    expect do |b|
+      sol.on(:movie_sign, &b)
+      sol.send_the_movie
+    end.to yield_with_args(sol)
+    expect do |b|
+      sol.on(:power_out, &b)
+      sol.disconnect
+    end.to yield_with_args(sol)
   end
 end

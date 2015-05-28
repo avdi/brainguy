@@ -23,7 +23,7 @@ class SatelliteOfLove
 
   def emit(event_name)
     @handlers[event_name].each do |handler|
-      handler.call(self)
+      handler.call(self, event_name)
     end
   end
 end
@@ -42,7 +42,7 @@ RSpec.describe Brainguy do
   it "allows multiple listeners to subscribe" do
     mike = spy("mike")
     crow = spy("crow")
-    sol = SatelliteOfLove.new
+    sol  = SatelliteOfLove.new
     sol.on(:movie_sign) do
       mike.panic!
     end
@@ -80,10 +80,18 @@ RSpec.describe Brainguy do
     expect do |b|
       sol.on(:movie_sign, &b)
       sol.send_the_movie
-    end.to yield_with_args(sol)
+    end.to yield_with_args(sol, anything)
     expect do |b|
       sol.on(:power_out, &b)
       sol.disconnect
-    end.to yield_with_args(sol)
+    end.to yield_with_args(sol, anything)
+  end
+
+  it "passes the event name to handler blocks" do
+    sol = SatelliteOfLove.new
+    expect do |b|
+      sol.on(:movie_sign, &b)
+      sol.send_the_movie
+    end.to yield_with_args(anything, :movie_sign)
   end
 end

@@ -4,8 +4,8 @@ class SatelliteOfLove
   Event = Struct.new(:name)
 
   def initialize
-    add_event(:movie_sign)
-    add_event(:power_out)
+    add_event_type(:movie_sign)
+    add_event_type(:power_out)
   end
 
   def events
@@ -34,7 +34,7 @@ class SatelliteOfLove
     end
   end
 
-  def add_event(event_name)
+  def add_event_type(event_name)
     @events ||= {}
     @events[event_name] ||= []
   end

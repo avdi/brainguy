@@ -41,8 +41,8 @@
       <file leaf-file-name="brainguy_spec.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/spec/brainguy_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4041721">
-              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.16166884">
+              <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -427,7 +427,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432787929062</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Rename @handlers to @events">
+      <created>1432788073943</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1432788073943</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -494,7 +500,8 @@
     <MESSAGE value="Inline some variables" />
     <MESSAGE value="Begin to support listing events" />
     <MESSAGE value="Extract #add_event helper" />
-    <option name="LAST_COMMIT_MESSAGE" value="Extract #add_event helper" />
+    <MESSAGE value="Rename @handlers to @events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename @handlers to @events" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -540,8 +547,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/brainguy_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4041721">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.16166884">
+          <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
           <folding />
         </state>
       </provider>

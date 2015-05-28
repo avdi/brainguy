@@ -9,11 +9,11 @@ class SatelliteOfLove
   end
 
   def events
-    @handlers.keys.map{|name| Event.new(name) }
+    @events.keys.map{|name| Event.new(name) }
   end
 
   def on(event_name, &block)
-    @handlers[event_name] << block
+    @events[event_name] << block
   end
 
   def send_the_movie
@@ -29,14 +29,14 @@ class SatelliteOfLove
   end
 
   def emit(event_name, *extra_args)
-    @handlers[event_name].each do |handler|
+    @events[event_name].each do |handler|
       handler.call(self, event_name, *extra_args)
     end
   end
 
   def add_event(event_name)
-    @handlers ||= {}
-    @handlers[event_name] ||= []
+    @events ||= {}
+    @events[event_name] ||= []
   end
 end
 

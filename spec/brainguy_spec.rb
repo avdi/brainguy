@@ -1,7 +1,7 @@
 require "rspec"
 
 class SatelliteOfLove
-  Event = Struct.new(:name)
+  EventType = Struct.new(:name)
 
   def initialize
     add_event_type(:movie_sign)
@@ -9,7 +9,7 @@ class SatelliteOfLove
   end
 
   def events
-    @events.keys.map{|name| Event.new(name) }
+    @events.keys.map{|name| EventType.new(name) }
   end
 
   def on(event_name, &block)

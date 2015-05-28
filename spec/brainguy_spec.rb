@@ -12,8 +12,7 @@ class SatelliteOfLove
   end
 
   def send_the_movie
-    event_name = :movie_sign
-    emit(event_name)
+    emit(:movie_sign)
   end
 
   def send_final_sacrifice
@@ -21,8 +20,7 @@ class SatelliteOfLove
   end
 
   def disconnect
-    event_name = :power_out
-    emit(event_name)
+    emit(:power_out)
   end
 
   def emit(event_name, *extra_args)

@@ -1,10 +1,17 @@
 require "rspec"
 
 class SatelliteOfLove
+  Event = Struct.new(:name)
+
   def initialize
-    @handlers = Hash.new do |h, k|
-      h[k] = []
-    end
+    @handlers = {
+        movie_sign: [],
+        power_out: [],
+    }
+  end
+
+  def events
+    @handlers.keys.map{|name| Event.new(name) }
   end
 
   def on(event_name, &block)
@@ -106,5 +113,11 @@ RSpec.describe Brainguy do
     sol.send_final_sacrifice
     expect(movie_info[:origin]).to eq("Canada")
     expect(movie_info[:hero]).to eq("Zap Rowsdower")
+  end
+
+  it "can list events" do
+    sol = SatelliteOfLove.new
+    event_names = sol.events.map(&:name).sort
+    expect(event_names).to eq([:movie_sign, :power_out])
   end
 end

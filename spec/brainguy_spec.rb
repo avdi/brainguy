@@ -4,10 +4,8 @@ class SatelliteOfLove
   Event = Struct.new(:name)
 
   def initialize
-    @handlers = {
-        movie_sign: [],
-        power_out: [],
-    }
+    add_event(:movie_sign)
+    add_event(:power_out)
   end
 
   def events
@@ -34,6 +32,11 @@ class SatelliteOfLove
     @handlers[event_name].each do |handler|
       handler.call(self, event_name, *extra_args)
     end
+  end
+
+  def add_event(event_name)
+    @handlers ||= {}
+    @handlers[event_name] ||= []
   end
 end
 

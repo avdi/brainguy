@@ -16,14 +16,18 @@ class SatelliteOfLove
     emit(event_name)
   end
 
+  def send_final_sacrifice
+    emit(:movie_sign, origin: "Canada", hero: "Zap Rowsdower")
+  end
+
   def disconnect
     event_name = :power_out
     emit(event_name)
   end
 
-  def emit(event_name)
+  def emit(event_name, *extra_args)
     @handlers[event_name].each do |handler|
-      handler.call(self, event_name)
+      handler.call(self, event_name, *extra_args)
     end
   end
 end
@@ -93,5 +97,16 @@ RSpec.describe Brainguy do
       sol.on(:movie_sign, &b)
       sol.send_the_movie
     end.to yield_with_args(anything, :movie_sign)
+  end
+
+  it "passes extra args on to the handler block" do
+    sol = SatelliteOfLove.new
+    movie_info = :not_set
+    sol.on(:movie_sign) do |object, event, info|
+      movie_info = info
+    end
+    sol.send_final_sacrifice
+    expect(movie_info[:origin]).to eq("Canada")
+    expect(movie_info[:hero]).to eq("Zap Rowsdower")
   end
 end

@@ -12,13 +12,17 @@ class SatelliteOfLove
   end
 
   def send_the_movie
-    @handlers[:movie_sign].each do |handler|
-      handler.call(self)
-    end
+    event_name = :movie_sign
+    emit(event_name)
   end
 
   def disconnect
-    @handlers[:power_out].each do |handler|
+    event_name = :power_out
+    emit(event_name)
+  end
+
+  def emit(event_name)
+    @handlers[event_name].each do |handler|
       handler.call(self)
     end
   end

@@ -1,6 +1,7 @@
 # Brainguy
 
-TODO: Write a gem description
+Brainguy is an Observer library. This is probably funnier if you are a 
+Mystery Science Theater 3000.
 
 ## Installation
 
@@ -20,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Coming soon!
 
 ## Contributing
 

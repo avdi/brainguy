@@ -3,13 +3,7 @@ require "brainguy"
 
 module Brainguy
   class SatelliteOfLove
-    def initialize
-      @subscriptions = SubscriptionSet.new(self)
-    end
-
-    def events
-      @subscriptions
-    end
+    include Eventful
 
     def send_the_movie
       events.emit(:movie_sign)

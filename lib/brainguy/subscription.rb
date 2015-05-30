@@ -1,5 +1,7 @@
 module Brainguy
   class Subscription
+    attr_reader :listener
+
     def initialize(owner, listener)
       @owner    = owner
       @listener = listener

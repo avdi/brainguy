@@ -108,7 +108,7 @@ module Brainguy
     it "allows an object to listen to all events" do
       sol      = SatelliteOfLove.new
       listener = spy("listener")
-      sol.events.add_listener(listener)
+      sol.events.subscribe(listener)
 
       sol.send_the_movie
       expect(listener).to have_received(:call).with(sol, :movie_sign)
@@ -116,5 +116,34 @@ module Brainguy
       sol.disconnect
       expect(listener).to have_received(:call).with(sol, :power_out)
     end
+
+    it "allows a listener to be unsubscribed" do
+      sol      = SatelliteOfLove.new
+      listener = spy("listener")
+      subscription = sol.events.subscribe(listener)
+
+      sol.send_the_movie
+      expect(listener).to have_received(:call).with(sol, :movie_sign)
+
+      subscription.cancel
+
+      sol.disconnect
+      expect(listener).not_to have_received(:call).with(sol, :power_out)
+    end
+
+    it "allows a listener to be unsubscribed by identity" do
+      sol      = SatelliteOfLove.new
+      listener = spy("listener")
+      sol.events.subscribe(listener)
+
+      sol.send_the_movie
+      expect(listener).to have_received(:call).with(sol, :movie_sign)
+
+      sol.events.unsubscribe(listener)
+
+      sol.disconnect
+      expect(listener).not_to have_received(:call).with(sol, :power_out)
+    end
+
   end
 end

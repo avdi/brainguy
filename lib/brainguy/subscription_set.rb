@@ -9,10 +9,14 @@ module Brainguy
       @event_source = event_source
     end
 
-    def add_listener(new_listener)
+    def subscribe(new_listener)
       FullSubscription.new(self, new_listener).tap do |subscription|
         self << subscription
       end
+    end
+
+    def unsubscribe(listener)
+      delete(subscription_for_listener(listener))
     end
 
     def on(event_name, &block)
@@ -25,6 +29,10 @@ module Brainguy
       each do |subscription|
         subscription.handle(@event_source, event_name, extra_args)
       end
+    end
+
+    def subscription_for_listener(listener)
+      detect{|subscription| subscription.listener.equal?(listener)}
     end
   end
 end

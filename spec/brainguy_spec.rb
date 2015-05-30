@@ -1,13 +1,31 @@
 require "rspec"
 
+class Subscription
+  def initialize(owner, handler, subscribed_event_name)
+    @owner              = owner
+    @handler            = handler
+    @subscribed_event_name = subscribed_event_name
+  end
+
+  def cancel
+    @owner.delete(self)
+  end
+
+  def handle(event_source, event_name, extra_args)
+    return unless event_name == @subscribed_event_name
+    @handler.call(event_source, event_name, *extra_args)
+  end
+end
+
 class SatelliteOfLove
   def initialize
-    add_event_type(:movie_sign)
-    add_event_type(:power_out)
+    @subscriptions = []
   end
 
   def on(event_name, &block)
-    @events[event_name] << block
+    subscription = Subscription.new(@subscriptions, block, event_name)
+    @subscriptions << subscription
+    subscription
   end
 
   def send_the_movie
@@ -23,14 +41,9 @@ class SatelliteOfLove
   end
 
   def emit(event_name, *extra_args)
-    @events[event_name].each do |handler|
-      handler.call(self, event_name, *extra_args)
+    @subscriptions.each do |subscription|
+      subscription.handle(self, event_name, extra_args)
     end
-  end
-
-  def add_event_type(event_name)
-    @events ||= {}
-    @events[event_name] ||= []
   end
 end
 
@@ -102,7 +115,7 @@ RSpec.describe Brainguy do
   end
 
   it "passes extra emit args on to the handler block" do
-    sol = SatelliteOfLove.new
+    sol        = SatelliteOfLove.new
     movie_info = :not_set
     sol.on(:movie_sign) do |object, event, info|
       movie_info = info
@@ -110,5 +123,14 @@ RSpec.describe Brainguy do
     sol.send_final_sacrifice
     expect(movie_info[:origin]).to eq("Canada")
     expect(movie_info[:hero]).to eq("Zap Rowsdower")
+  end
+
+  it "allows a subscription to be removed" do
+    sol = SatelliteOfLove.new
+    expect do |b|
+      subscription = sol.on(:movie_sign, &b)
+      subscription.cancel
+      sol.send_the_movie
+    end.to_not yield_control
   end
 end

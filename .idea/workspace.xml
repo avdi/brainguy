@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e3289b92-e975-45fa-9ca5-fbdbb5401ac1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/brainguy_spec.rb" afterPath="$PROJECT_DIR$/spec/brainguy_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/subscription.rb" afterPath="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" afterPath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="e3289b92-e975-45fa-9ca5-fbdbb5401ac1" name="Default" comment="Allow listeners to be unsubscribed by identity.">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/brainguy.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <ignored path="brainguy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,11 +43,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="subscription_set.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5113043">
-              <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.25565216">
+              <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -67,8 +70,9 @@
         <option value="$PROJECT_DIR$/lib/brainguy.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/eventful.rb" />
         <option value="$PROJECT_DIR$/spec/brainguy_spec.rb" />
-        <option value="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
+        <option value="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -81,9 +85,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="53" />
-    <option name="y" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1867" />
-    <option name="height" value="1204" />
+    <option name="height" value="1176" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -256,7 +260,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="subset&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy/subscription_set.rb&#10;pull&#9;ACTION&#9;MembersPullUp&#10;braing&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy.rb&#10;move&#9;ACTION&#9;Move&#10;settings&#9;null&#9;null&#10;structure&#9;ACTION&#9;ActivateStructureToolWindow&#10;histo&#9;ACTION&#9;Vcs.ShowTabbedFileHistory&#10;gemsp&#9;FILE&#9;file:///home/avdi/dev/brainguy/brainguy.gemspec&#10;extract&#9;ACTION&#9;IntroduceActionsGroup&#10;folding&#9;ACTION&#9;FoldingGroup&#10;foldin&#9;ACTION&#9;FoldingGroup&#10;fold&#9;ACTION&#9;GotoCustomRegion&#10;bundle&#9;ACTION&#9;org.jetbrains.plugins.ruby.gem.bundler.actions.RunBundlerInstallAction" />
+    <property name="SearchEverywhereHistoryKey" value=".giti&#9;FILE&#9;file:///home/avdi/dev/brainguy/.gitignore&#10;.ignore&#9;ACTION&#9;Ignore.New&#10;subset&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy/subscription_set.rb&#10;pull&#9;ACTION&#9;MembersPullUp&#10;braing&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy.rb&#10;move&#9;ACTION&#9;Move&#10;settings&#9;null&#9;null&#10;structure&#9;ACTION&#9;ActivateStructureToolWindow&#10;histo&#9;ACTION&#9;Vcs.ShowTabbedFileHistory&#10;gemsp&#9;FILE&#9;file:///home/avdi/dev/brainguy/brainguy.gemspec&#10;extract&#9;ACTION&#9;IntroduceActionsGroup&#10;folding&#9;ACTION&#9;FoldingGroup&#10;foldin&#9;ACTION&#9;FoldingGroup&#10;fold&#9;ACTION&#9;GotoCustomRegion&#10;bundle&#9;ACTION&#9;org.jetbrains.plugins.ruby.gem.bundler.actions.RunBundlerInstallAction" />
     <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
@@ -565,6 +569,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
       <method />
     </configuration>
     <list size="5">
@@ -576,11 +586,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="RSpec.Run spec 'brainguy_spec': brainguy" />
-        <item index="1" class="java.lang.String" itemvalue="RSpec. can list events: brainguy" />
-        <item index="2" class="java.lang.String" itemvalue="RSpec. passes extra args on to the handler block: brainguy" />
-        <item index="3" class="java.lang.String" itemvalue="RSpec. passes extra args into handler blocks: brainguy" />
-        <item index="4" class="java.lang.String" itemvalue="RSpec. passes the event name to handler blocks: brainguy" />
+        <item index="0" class="java.lang.String" itemvalue="RSpec. can list events: brainguy" />
+        <item index="1" class="java.lang.String" itemvalue="RSpec. passes extra args on to the handler block: brainguy" />
+        <item index="2" class="java.lang.String" itemvalue="RSpec. passes extra args into handler blocks: brainguy" />
+        <item index="3" class="java.lang.String" itemvalue="RSpec. passes the event name to handler blocks: brainguy" />
+        <item index="4" class="java.lang.String" itemvalue="RSpec.Run spec 'brainguy_spec': brainguy" />
       </list>
     </recent_temporary>
   </component>
@@ -715,34 +725,40 @@
       <option name="project" value="LOCAL" />
       <updated>1432962108035</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Allow listeners to be unsubscribed by identity.">
+      <created>1432962781200</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1432962781200</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="53" y="-4" width="1867" height="1204" extended-state="6" />
+    <frame x="53" y="24" width="1867" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33208355" sideWeight="0.66096866" order="0" side_tool="false" content_ui="combo" x="768" y="52" width="390" height="715" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252149" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32808024" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Heroku" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4893978" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33166668" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37098175" sideWeight="0.99895835" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5825" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="0" y="268" width="1366" height="229" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33208355" sideWeight="0.66096866" order="0" side_tool="false" content_ui="combo" x="768" y="52" width="390" height="715" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31798437" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24739583" sideWeight="0.67019403" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5825" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="0" y="268" width="1366" height="229" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5200573" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252149" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32808024" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3988604" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42406878" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24947916" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31798437" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -802,7 +818,8 @@
     <MESSAGE value="Move #on into SubscriptionSet" />
     <MESSAGE value="Move #emit into SubscriptionSet." />
     <MESSAGE value="Move #events into new Eventful module." />
-    <option name="LAST_COMMIT_MESSAGE" value="Move #events into new Eventful module." />
+    <MESSAGE value="Allow listeners to be unsubscribed by identity." />
+    <option name="LAST_COMMIT_MESSAGE" value="Allow listeners to be unsubscribed by identity." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -811,6 +828,27 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+          <folding>
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="{ ... }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -831,10 +869,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3853211">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <marker date="1432764539256" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432764539256" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -842,7 +876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12260217">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,50 +883,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.017514596">
           <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding>
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="unless ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder="#..." />
-            <marker date="1422988023882" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -901,10 +890,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.09130435">
           <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-          <folding>
-            <marker date="1432961146719" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961146719" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -912,10 +897,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05478261">
           <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-          <folding>
-            <marker date="1432961146719" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961146719" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -923,11 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05478261">
           <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
-          <folding>
-            <marker date="1432962096431" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962096431" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962096431" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -935,9 +911,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.03652174">
           <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-          <folding>
-            <marker date="1432961892847" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -945,12 +918,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.09130435">
           <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-          <folding>
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -958,12 +925,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.03652174">
           <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
-          <folding>
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432961162119" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -971,57 +932,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7443478">
           <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
-          <folding>
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962479731" expanded="true" signature="-1:-1" placeholder="do ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.058091287">
+        <state vertical-scroll-proportion="0.03652174">
           <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding>
-            <marker date="1432962759643" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962759643" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962759643" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962759643" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962759643" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5113043">
-          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.32869565">
+          <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+          <folding>
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="{ ... }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25565216">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
         </state>
       </provider>

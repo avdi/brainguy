@@ -1,6 +1,8 @@
 module Brainguy
   class Subscription
-    attr_reader :listener
+    include Comparable
+
+    attr_reader :owner, :listener
 
     def initialize(owner, listener)
       @owner    = owner
@@ -13,6 +15,22 @@ module Brainguy
 
     def cancel
       @owner.delete(self)
+    end
+
+    def <=>(other)
+      equality_components <=> other.equality_components
+    end
+
+    def hash
+      [self.class, *equality_components].hash
+    end
+
+    alias_method :eql?, :==
+
+    protected
+
+    def equality_components
+      [owner.object_id, listener.object_id]
     end
   end
 end

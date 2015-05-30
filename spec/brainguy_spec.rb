@@ -140,10 +140,19 @@ module Brainguy
       expect(listener).to have_received(:call).with(sol, :movie_sign)
 
       sol.events.unsubscribe(listener)
+      expect(sol.events).to be_empty
 
       sol.disconnect
       expect(listener).not_to have_received(:call).with(sol, :power_out)
     end
 
+    it "does not allow the same listener to be subscribed twice" do
+      sol      = SatelliteOfLove.new
+      listener = spy("listener")
+      sol.events.subscribe(listener)
+      sol.events.subscribe(listener)
+      sol.send_the_movie
+      expect(listener).to have_received(:call).once
+    end
   end
 end

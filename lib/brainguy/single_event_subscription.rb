@@ -11,5 +11,9 @@ module Brainguy
       return unless event_name == @subscribed_event_name
       super
     end
+
+    def equality_components
+      super + [@subscribed_event_name]
+    end
   end
 end

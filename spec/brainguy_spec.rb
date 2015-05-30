@@ -7,12 +7,6 @@ module Brainguy
       @subscriptions = SubscriptionSet.new
     end
 
-    def on(event_name, &block)
-      subscription = SingleEventSubscription.new(@subscriptions, block, event_name)
-      @subscriptions << subscription
-      subscription
-    end
-
     def events
       @subscriptions
     end
@@ -42,7 +36,7 @@ module Brainguy
     it "enables objects to publish simple events" do
       mike = spy("mike")
       sol  = SatelliteOfLove.new
-      sol.on(:movie_sign) do
+      sol.events.on(:movie_sign) do
         mike.panic!
       end
       sol.send_the_movie
@@ -53,10 +47,10 @@ module Brainguy
       mike = spy("mike")
       crow = spy("crow")
       sol  = SatelliteOfLove.new
-      sol.on(:movie_sign) do
+      sol.events.on(:movie_sign) do
         mike.panic!
       end
-      sol.on(:movie_sign) do
+      sol.events.on(:movie_sign) do
         crow.also_panic!
       end
       sol.send_the_movie
@@ -67,10 +61,10 @@ module Brainguy
     it "allows multiple events to be emitted" do
       crow = spy("crow")
       sol  = SatelliteOfLove.new
-      sol.on(:movie_sign) do
+      sol.events.on(:movie_sign) do
         crow.panic
       end
-      sol.on(:power_out) do
+      sol.events.on(:power_out) do
         crow.loot
       end
       sol.send_the_movie
@@ -88,11 +82,11 @@ module Brainguy
     it "passes the event emitting object to handler blocks" do
       sol = SatelliteOfLove.new
       expect do |b|
-        sol.on(:movie_sign, &b)
+        sol.events.on(:movie_sign, &b)
         sol.send_the_movie
       end.to yield_with_args(sol, anything)
       expect do |b|
-        sol.on(:power_out, &b)
+        sol.events.on(:power_out, &b)
         sol.disconnect
       end.to yield_with_args(sol, anything)
     end
@@ -100,7 +94,7 @@ module Brainguy
     it "passes the event name to handler blocks" do
       sol = SatelliteOfLove.new
       expect do |b|
-        sol.on(:movie_sign, &b)
+        sol.events.on(:movie_sign, &b)
         sol.send_the_movie
       end.to yield_with_args(anything, :movie_sign)
     end
@@ -108,7 +102,7 @@ module Brainguy
     it "passes extra emit args on to the handler block" do
       sol        = SatelliteOfLove.new
       movie_info = :not_set
-      sol.on(:movie_sign) do |object, event, info|
+      sol.events.on(:movie_sign) do |object, event, info|
         movie_info = info
       end
       sol.send_final_sacrifice
@@ -119,7 +113,7 @@ module Brainguy
     it "allows a subscription to be removed" do
       sol = SatelliteOfLove.new
       expect do |b|
-        subscription = sol.on(:movie_sign, &b)
+        subscription = sol.events.on(:movie_sign, &b)
         subscription.cancel
         sol.send_the_movie
       end.to_not yield_control

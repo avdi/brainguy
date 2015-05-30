@@ -13,5 +13,11 @@ module Brainguy
         self << subscription
       end
     end
+
+    def on(event_name, &block)
+      SingleEventSubscription.new(self, block, event_name).tap do |subscription|
+        self << subscription
+      end
+    end
   end
 end

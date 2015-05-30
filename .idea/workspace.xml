@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3289b92-e975-45fa-9ca5-fbdbb5401ac1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/brainguy/full_subscription.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy.rb" afterPath="$PROJECT_DIR$/lib/brainguy.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/brainguy_spec.rb" afterPath="$PROJECT_DIR$/spec/brainguy_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" afterPath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="brainguy.iws" />
@@ -24,7 +20,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/brainguy@_allows_for_zero_subscribers__brainguy.coverage" NAME=" allows for zero subscribers: brainguy Coverage Results" MODIFIED="1432784944959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_passes_extra_args_into_handler_blocks__brainguy.coverage" NAME=" passes extra args into handler blocks: brainguy Coverage Results" MODIFIED="1432786466746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
-    <SUITE FILE_PATH="coverage/brainguy@Run_spec__brainguy_spec___brainguy.coverage" NAME="Run spec 'brainguy_spec': brainguy Coverage Results" MODIFIED="1432961162134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
+    <SUITE FILE_PATH="coverage/brainguy@Run_spec__brainguy_spec___brainguy.coverage" NAME="Run spec 'brainguy_spec': brainguy Coverage Results" MODIFIED="1432961775654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_can_list_events__brainguy.coverage" NAME=" can list events: brainguy Coverage Results" MODIFIED="1432788054255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_enables_objects_to_publish_simple_events__brainguy.coverage" NAME=" enables objects to publish simple events: brainguy Coverage Results" MODIFIED="1432783401971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_allows_multiple_listeners_to_subscribe__brainguy.coverage" NAME=" allows multiple listeners to subscribe: brainguy Coverage Results" MODIFIED="1432783752839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
@@ -43,11 +39,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="brainguy_spec.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/spec/brainguy_spec.rb">
+      <file leaf-file-name="subscription_set.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38347825">
-              <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.45652175">
+              <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -63,14 +59,14 @@
       <list>
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/brainguy.gemspec" />
-        <option value="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/full_subscription.rb" />
-        <option value="$PROJECT_DIR$/spec/brainguy_spec.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy.rb" />
         <option value="$USER_HOME$/sync/dev/brainguy/lib/brainguy/full_subscription.rb" />
         <option value="$USER_HOME$/sync/dev/brainguy/lib/brainguy/single_event_subscription.rb" />
+        <option value="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
+        <option value="$PROJECT_DIR$/spec/brainguy_spec.rb" />
       </list>
     </option>
   </component>
@@ -226,7 +222,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="braing&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy.rb&#10;move&#9;ACTION&#9;Move&#10;pull&#9;ACTION&#9;MembersPullUp&#10;settings&#9;null&#9;null&#10;structure&#9;ACTION&#9;ActivateStructureToolWindow&#10;histo&#9;ACTION&#9;Vcs.ShowTabbedFileHistory&#10;gemsp&#9;FILE&#9;file:///home/avdi/dev/brainguy/brainguy.gemspec&#10;extract&#9;ACTION&#9;IntroduceActionsGroup&#10;folding&#9;ACTION&#9;FoldingGroup&#10;foldin&#9;ACTION&#9;FoldingGroup&#10;fold&#9;ACTION&#9;GotoCustomRegion&#10;bundle&#9;ACTION&#9;org.jetbrains.plugins.ruby.gem.bundler.actions.RunBundlerInstallAction" />
+    <property name="SearchEverywhereHistoryKey" value="subset&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy/subscription_set.rb&#10;braing&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy.rb&#10;move&#9;ACTION&#9;Move&#10;pull&#9;ACTION&#9;MembersPullUp&#10;settings&#9;null&#9;null&#10;structure&#9;ACTION&#9;ActivateStructureToolWindow&#10;histo&#9;ACTION&#9;Vcs.ShowTabbedFileHistory&#10;gemsp&#9;FILE&#9;file:///home/avdi/dev/brainguy/brainguy.gemspec&#10;extract&#9;ACTION&#9;IntroduceActionsGroup&#10;folding&#9;ACTION&#9;FoldingGroup&#10;foldin&#9;ACTION&#9;FoldingGroup&#10;fold&#9;ACTION&#9;GotoCustomRegion&#10;bundle&#9;ACTION&#9;org.jetbrains.plugins.ruby.gem.bundler.actions.RunBundlerInstallAction" />
     <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
@@ -661,7 +657,19 @@
       <option name="project" value="LOCAL" />
       <updated>1432960504042</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Move classes out of spec.">
+      <created>1432961196408</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1432961196408</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Move #on into SubscriptionSet">
+      <created>1432961480790</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1432961480790</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -744,7 +752,9 @@
     <MESSAGE value="Enable subscriptions to be cancelled." />
     <MESSAGE value="Formatting." />
     <MESSAGE value="Add the ability to add listeners." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add the ability to add listeners." />
+    <MESSAGE value="Move classes out of spec." />
+    <MESSAGE value="Move #on into SubscriptionSet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move #on into SubscriptionSet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -898,20 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1432960878831" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432960878831" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432960878831" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432960878831" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432960878831" expanded="true" signature="-1:-1" placeholder="do ... end" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/sync/dev/brainguy/lib/brainguy/single_event_subscription.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -927,8 +923,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/spec/brainguy_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38347825">
-          <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.65421855">
+          <caret line="24" column="2" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
+          <folding>
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="{ ... }" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432961775643" expanded="true" signature="-1:-1" placeholder="do ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45652175">
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
           <folding />
         </state>
       </provider>

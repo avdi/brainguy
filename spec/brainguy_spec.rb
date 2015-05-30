@@ -4,7 +4,7 @@ require "brainguy"
 module Brainguy
   class SatelliteOfLove
     def initialize
-      @subscriptions = SubscriptionSet.new
+      @subscriptions = SubscriptionSet.new(self)
     end
 
     def events
@@ -12,23 +12,15 @@ module Brainguy
     end
 
     def send_the_movie
-      emit(:movie_sign)
+      events.emit(:movie_sign)
     end
 
     def send_final_sacrifice
-      emit(:movie_sign, origin: "Canada", hero: "Zap Rowsdower")
+      events.emit(:movie_sign, origin: "Canada", hero: "Zap Rowsdower")
     end
 
     def disconnect
-      emit(:power_out)
-    end
-
-    private
-
-    def emit(event_name, *extra_args)
-      @subscriptions.each do |subscription|
-        subscription.handle(self, event_name, extra_args)
-      end
+      events.emit(:power_out)
     end
   end
 

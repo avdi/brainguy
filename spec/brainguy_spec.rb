@@ -1,31 +1,62 @@
 require "rspec"
+require "set"
+require "delegate"
 
 class Subscription
-  def initialize(owner, handler, subscribed_event_name)
-    @owner                 = owner
-    @handler               = handler
-    @subscribed_event_name = subscribed_event_name
+  def initialize(owner, listener)
+    @owner    = owner
+    @listener = listener
+  end
+
+  def handle(event_source, event_name, extra_args)
+    @listener.call(event_source, event_name, *extra_args)
   end
 
   def cancel
     @owner.delete(self)
   end
+end
+
+class SingleEventSubscription < Subscription
+  def initialize(owner, listener, subscribed_event_name)
+    super(owner, listener)
+    @subscribed_event_name = subscribed_event_name
+  end
 
   def handle(event_source, event_name, extra_args)
     return unless event_name == @subscribed_event_name
-    @handler.call(event_source, event_name, *extra_args)
+    super
+  end
+end
+
+class FullSubscription < Subscription
+end
+
+class SubscriptionSet < DelegateClass(Set)
+  def initialize
+    super(Set.new)
+  end
+
+  def add_listener(new_listener)
+    FullSubscription.new(self, new_listener).tap do |subscription|
+      self << subscription
+    end
   end
 end
 
 class SatelliteOfLove
   def initialize
-    @subscriptions = []
+    @subscriptions = SubscriptionSet.new
   end
 
   def on(event_name, &block)
-    subscription = Subscription.new(@subscriptions, block, event_name)
+    subscription = SingleEventSubscription.new(@subscriptions, block, event_name)
     @subscriptions << subscription
     subscription
+  end
+
+  def events
+    @subscriptions
   end
 
   def send_the_movie
@@ -39,6 +70,8 @@ class SatelliteOfLove
   def disconnect
     emit(:power_out)
   end
+
+  private
 
   def emit(event_name, *extra_args)
     @subscriptions.each do |subscription|
@@ -132,5 +165,17 @@ RSpec.describe Brainguy do
       subscription.cancel
       sol.send_the_movie
     end.to_not yield_control
+  end
+
+  it "allows an object to listen to all events" do
+    sol      = SatelliteOfLove.new
+    listener = spy("listener")
+    sol.events.add_listener(listener)
+
+    sol.send_the_movie
+    expect(listener).to have_received(:call).with(sol, :movie_sign)
+
+    sol.disconnect
+    expect(listener).to have_received(:call).with(sol, :power_out)
   end
 end

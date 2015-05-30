@@ -1,7 +1,7 @@
 # Brainguy
 
 Brainguy is an Observer library. This is probably funnier if you are a 
-Mystery Science Theater 3000.
+Mystery Science Theater 3000 fan.
 
 ## Installation
 

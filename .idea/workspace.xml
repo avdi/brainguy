@@ -44,8 +44,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43125">
-              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.05625">
+              <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -736,7 +736,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432963014779</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Customize README.">
+      <created>1432963199268</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1432963199268</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -825,7 +831,8 @@
     <MESSAGE value="Move #events into new Eventful module." />
     <MESSAGE value="Allow listeners to be unsubscribed by identity." />
     <MESSAGE value="Remove RubyMine files from repo." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove RubyMine files from repo." />
+    <MESSAGE value="Customize README." />
+    <option name="LAST_COMMIT_MESSAGE" value="Customize README." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -982,8 +989,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43125">
-          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.05625">
+          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
           <folding />
         </state>
       </provider>

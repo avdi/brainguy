@@ -2,8 +2,8 @@ require "rspec"
 
 class Subscription
   def initialize(owner, handler, subscribed_event_name)
-    @owner              = owner
-    @handler            = handler
+    @owner                 = owner
+    @handler               = handler
     @subscribed_event_name = subscribed_event_name
   end
 

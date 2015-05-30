@@ -101,7 +101,7 @@ RSpec.describe Brainguy do
     end.to yield_with_args(anything, :movie_sign)
   end
 
-  it "passes extra args on to the handler block" do
+  it "passes extra emit args on to the handler block" do
     sol = SatelliteOfLove.new
     movie_info = :not_set
     sol.on(:movie_sign) do |object, event, info|

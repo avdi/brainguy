@@ -37,5 +37,10 @@ module Brainguy
       expect(sub1.hash).not_to eq(sub2.hash)
       expect(sub1).not_to eql(sub2)
     end
+
+    it "is frozen" do
+      s = Subscription.new(double, double)
+      expect(s).to be_frozen
+    end
   end
 end

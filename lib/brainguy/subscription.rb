@@ -1,4 +1,8 @@
 module Brainguy
+  # A value object that represents a single subscription to an event source.
+  #
+  # It ties together an event *source* to a *listener*. A listener is simply
+  # some call-able object.
   class Subscription
     include Comparable
 
@@ -7,6 +11,7 @@ module Brainguy
     def initialize(owner, listener)
       @owner    = owner
       @listener = listener
+      freeze
     end
 
     def handle(event_source, event_name, extra_args)
@@ -18,6 +23,7 @@ module Brainguy
     end
 
     def <=>(other)
+      return nil unless other.is_a?(Subscription)
       equality_components <=> other.equality_components
     end
 

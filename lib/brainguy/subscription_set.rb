@@ -16,7 +16,7 @@ module Brainguy
     end
 
     def unsubscribe(listener)
-      delete(subscription_for_listener(listener))
+      delete(FullSubscription.new(self, listener))
     end
 
     def on(event_name, &block)
@@ -29,10 +29,6 @@ module Brainguy
       each do |subscription|
         subscription.handle(@event_source, event_name, extra_args)
       end
-    end
-
-    def subscription_for_listener(listener)
-      detect{|subscription| subscription.listener.equal?(listener)}
     end
   end
 end

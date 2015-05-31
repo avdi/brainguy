@@ -21,7 +21,7 @@ module Brainguy
       r = WebRequest.new
       r.successful_response
       listener = spy("listener")
-      r.events.subscribe(listener)
+      r.events.attach(listener)
       expect(listener).to have_received(:call).with(r, :data, "Hello, ").ordered
       expect(listener).to have_received(:call).with(r, :data, "World!").ordered
       expect(listener).to have_received(:call).with(r, :success).ordered
@@ -39,7 +39,7 @@ module Brainguy
     it "passes events on to existing listeners immediately" do
       r        = WebRequest.new
       listener = spy("listener")
-      r.events.subscribe(listener)
+      r.events.attach(listener)
       r.successful_response
       expect(listener).to have_received(:call).with(r, :data, "Hello, ").ordered
       expect(listener).to have_received(:call).with(r, :data, "World!").ordered
@@ -49,9 +49,9 @@ module Brainguy
     it "does not repeat events to preexisting listeners" do
       r        = WebRequest.new
       listener = spy("listener")
-      r.events.subscribe(listener)
+      r.events.attach(listener)
       r.successful_response
-      r.events.subscribe(spy("new listener"))
+      r.events.attach(spy("new listener"))
       expect(listener).to have_received(:call).exactly(3).times
     end
   end

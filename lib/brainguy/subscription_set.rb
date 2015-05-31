@@ -10,7 +10,7 @@ module Brainguy
       @event_source = event_source
     end
 
-    def subscribe(new_listener)
+    def attach(new_listener)
       FullSubscription.new(self, new_listener).tap do |subscription|
         self << subscription
       end

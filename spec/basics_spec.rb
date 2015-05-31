@@ -33,7 +33,7 @@ module Brainguy
       expect(mike).to have_received(:handle_rejection)
     end
 
-    it "allows multiple listeners to subscribe" do
+    it "allows multiple listeners to attach" do
       mike = spy("mike")
       crow = spy("crow")
       bid  = AuctionBid.new
@@ -111,7 +111,7 @@ module Brainguy
     it "allows an object to listen to all events" do
       bid      = AuctionBid.new
       listener = spy("listener")
-      bid.events.subscribe(listener)
+      bid.events.attach(listener)
 
       bid.reject_bid
       expect(listener).to have_received(:call).with(bid, :rejected)
@@ -123,7 +123,7 @@ module Brainguy
     it "allows a listener to be unsubscribed" do
       bid          = AuctionBid.new
       listener     = spy("listener")
-      subscription = bid.events.subscribe(listener)
+      subscription = bid.events.attach(listener)
 
       bid.reject_bid
       expect(listener).to have_received(:call).with(bid, :rejected)
@@ -137,7 +137,7 @@ module Brainguy
     it "allows a listener to be unsubscribed by identity" do
       bid      = AuctionBid.new
       listener = spy("listener")
-      bid.events.subscribe(listener)
+      bid.events.attach(listener)
 
       bid.reject_bid
       expect(listener).to have_received(:call).with(bid, :rejected)
@@ -152,8 +152,8 @@ module Brainguy
     it "does not allow the same listener to be subscribed twice" do
       bid      = AuctionBid.new
       listener = spy("listener")
-      bid.events.subscribe(listener)
-      bid.events.subscribe(listener)
+      bid.events.attach(listener)
+      bid.events.attach(listener)
       bid.reject_bid
       expect(listener).to have_received(:call).once
     end

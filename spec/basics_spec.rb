@@ -142,7 +142,7 @@ module Brainguy
       bid.reject_bid
       expect(listener).to have_received(:call).with(bid, :rejected)
 
-      bid.events.unsubscribe(listener)
+      bid.events.detach(listener)
       expect(bid.events).to be_empty
 
       bid.accept_bid

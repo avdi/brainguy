@@ -16,7 +16,7 @@ module Brainguy
       end
     end
 
-    def unsubscribe(listener)
+    def detach(listener)
       delete(FullSubscription.new(self, listener))
     end
 

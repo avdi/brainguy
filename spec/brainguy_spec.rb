@@ -86,14 +86,13 @@ module Brainguy
     end
 
     it "passes extra event args on to the handler block" do
-      bid        = AuctionBid.new
-      counter_info = :not_set
-      bid.events.on(:rejected) do |object, event, info|
-        counter_info = info
-      end
-      bid.make_counter_offer
-      expect(counter_info[:counter_amount]).to eq(101)
-      expect(counter_info[:valid_for_minutes]).to eq(60)
+      bid = AuctionBid.new
+      expect do |b|
+        bid.events.on(:rejected, &b)
+        bid.make_counter_offer
+      end.to yield_with_args(anything, anything,
+                             {counter_amount:    101,
+                              valid_for_minutes: 60})
     end
 
     it "allows a subscription to be removed" do
@@ -118,8 +117,8 @@ module Brainguy
     end
 
     it "allows a listener to be unsubscribed" do
-      bid      = AuctionBid.new
-      listener = spy("listener")
+      bid          = AuctionBid.new
+      listener     = spy("listener")
       subscription = bid.events.subscribe(listener)
 
       bid.reject_bid

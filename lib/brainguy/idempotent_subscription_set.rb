@@ -7,18 +7,18 @@ module Brainguy
       @event_log = []
     end
 
-    def emit(*event_args)
-      @event_log.push(event_args)
+    def emit(event_name, *extra_args)
+      @event_log.push(Event.new(event_name, @event_source, extra_args))
       super
     end
 
     def <<(subscription)
       super
-      @event_log.each do |event_args|
-        subscription.handle(@event_source,
-                            event_args.first,
-                            event_args.drop(1))
+      @event_log.each do |event|
+        subscription.handle(event)
       end
     end
+
+    alias_method :add, :<<
   end
 end

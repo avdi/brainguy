@@ -1,6 +1,7 @@
 require "delegate"
 require "brainguy/full_subscription"
 require "brainguy/single_event_subscription"
+require "brainguy/event"
 
 module Brainguy
   class SubscriptionSet < DelegateClass(Set)
@@ -27,7 +28,7 @@ module Brainguy
 
     def emit(event_name, *extra_args)
       each do |subscription|
-        subscription.handle(@event_source, event_name, extra_args)
+        subscription.handle(Event.new(event_name, @event_source, extra_args))
       end
     end
   end

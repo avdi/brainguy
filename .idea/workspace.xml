@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e3289b92-e975-45fa-9ca5-fbdbb5401ac1" name="Default" comment="Don't use Eventful module in high-level spec.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/idempotent_events_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/brainguy/idempotent_subscription_set.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/spec/brainguy_spec.rb" afterPath="$PROJECT_DIR$/spec/basics_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/brainguy.iml" afterPath="$PROJECT_DIR$/.idea/brainguy.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy.rb" afterPath="$PROJECT_DIR$/lib/brainguy.rb" />
+    <list default="true" id="e3289b92-e975-45fa-9ca5-fbdbb5401ac1" name="Default" comment="Refactor listener removal.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/brainguy/event.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/idempotent_subscription_set.rb" afterPath="$PROJECT_DIR$/lib/brainguy/idempotent_subscription_set.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb" afterPath="$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/subscription.rb" afterPath="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" afterPath="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="brainguy.iws" />
@@ -22,10 +22,10 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/brainguy@_allows_for_zero_subscribers__brainguy.coverage" NAME=" allows for zero subscribers: brainguy Coverage Results" MODIFIED="1432784944959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
-    <SUITE FILE_PATH="coverage/brainguy@All_Specs.coverage" NAME="All Specs Coverage Results" MODIFIED="1433095394437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" MODULE_NAME="brainguy" />
+    <SUITE FILE_PATH="coverage/brainguy@All_Specs.coverage" NAME="All Specs Coverage Results" MODIFIED="1433100258849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_can_list_events__brainguy.coverage" NAME=" can list events: brainguy Coverage Results" MODIFIED="1432788054255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_replays_events_when_a_listener_subscribes_late__brainguy.coverage" NAME=" replays events when a listener subscribes late: brainguy Coverage Results" MODIFIED="1433097146537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
-    <SUITE FILE_PATH="coverage/brainguy@Run_spec__idempotent_events_spec___brainguy.coverage" NAME="Run spec 'idempotent_events_spec': brainguy Coverage Results" MODIFIED="1433099227968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
+    <SUITE FILE_PATH="coverage/brainguy@Run_spec__idempotent_events_spec___brainguy.coverage" NAME="Run spec 'idempotent_events_spec': brainguy Coverage Results" MODIFIED="1433099524315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_passes_the_event_name_to_handler_blocks__brainguy.coverage" NAME=" passes the event name to handler blocks: brainguy Coverage Results" MODIFIED="1432785981061" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_passes_the_event_emitting_object_to_handler_blocks__brainguy.coverage" NAME=" passes the event emitting object to handler blocks: brainguy Coverage Results" MODIFIED="1432785586303" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
     <SUITE FILE_PATH="coverage/brainguy@_passes_extra_args_on_to_the_handler_block__brainguy.coverage" NAME=" passes extra args on to the handler block: brainguy Coverage Results" MODIFIED="1432786862856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="brainguy" />
@@ -48,11 +48,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="idempotent_subscription_set.rb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/brainguy/idempotent_subscription_set.rb">
+      <file leaf-file-name="subscription_set.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5557103">
-              <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.13876653">
+              <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -81,18 +81,19 @@
         <option value="$USER_HOME$/sync/dev/brainguy/lib/brainguy/full_subscription.rb" />
         <option value="$USER_HOME$/sync/dev/brainguy/lib/brainguy/single_event_subscription.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/eventful.rb" />
-        <option value="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/spec/brainguy/single_event_subscription_spec.rb" />
         <option value="$PROJECT_DIR$/spec/brainguy/subscription_spec.rb" />
-        <option value="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb" />
         <option value="$PROJECT_DIR$/spec/brainguy_spec.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy.rb" />
         <option value="$PROJECT_DIR$/spec/brainguy/idempotent_events_spec.rb" />
         <option value="$PROJECT_DIR$/spec/idempotent_events_spec.rb" />
+        <option value="$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb" />
+        <option value="$PROJECT_DIR$/lib/brainguy/subscription.rb" />
         <option value="$PROJECT_DIR$/lib/brainguy/idempotent_subscription_set.rb" />
+        <option value="$PROJECT_DIR$/lib/brainguy/event.rb" />
+        <option value="$PROJECT_DIR$/lib/brainguy/subscription_set.rb" />
       </list>
     </option>
   </component>
@@ -147,6 +148,66 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="brainguy">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="brainguy">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="brainguy">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lib">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="brainguy">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="brainguy">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT=".idea">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -231,66 +292,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="brainguy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="brainguy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="lib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="brainguy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="lib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="brainguy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="brainguy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT=".idea">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -298,7 +299,7 @@
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="braing&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy.rb&#10;on&#9;null&#9;null&#10;gitig&#9;FILE&#9;file:///home/avdi/dev/brainguy/.gitignore&#10;rebase&#9;ACTION&#9;Git.Rebase&#10;spec&#9;FILE&#9;file:///home/avdi/dev/brainguy/spec/brainguy_spec.rb&#10;readme&#9;FILE&#9;file:///home/avdi/dev/brainguy/README.md&#10;.giti&#9;FILE&#9;file:///home/avdi/dev/brainguy/.gitignore&#10;.ignore&#9;ACTION&#9;Ignore.New&#10;subset&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy/subscription_set.rb&#10;pull&#9;ACTION&#9;MembersPullUp&#10;move&#9;ACTION&#9;Move&#10;settings&#9;null&#9;null&#10;structure&#9;ACTION&#9;ActivateStructureToolWindow&#10;histo&#9;ACTION&#9;Vcs.ShowTabbedFileHistory&#10;gemsp&#9;FILE&#9;file:///home/avdi/dev/brainguy/brainguy.gemspec&#10;extract&#9;ACTION&#9;IntroduceActionsGroup&#10;folding&#9;ACTION&#9;FoldingGroup&#10;foldin&#9;ACTION&#9;FoldingGroup&#10;fold&#9;ACTION&#9;GotoCustomRegion&#10;bundle&#9;ACTION&#9;org.jetbrains.plugins.ruby.gem.bundler.actions.RunBundlerInstallAction" />
+    <property name="SearchEverywhereHistoryKey" value="move&#9;ACTION&#9;Move&#10;braing&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy.rb&#10;on&#9;null&#9;null&#10;gitig&#9;FILE&#9;file:///home/avdi/dev/brainguy/.gitignore&#10;rebase&#9;ACTION&#9;Git.Rebase&#10;spec&#9;FILE&#9;file:///home/avdi/dev/brainguy/spec/brainguy_spec.rb&#10;readme&#9;FILE&#9;file:///home/avdi/dev/brainguy/README.md&#10;.giti&#9;FILE&#9;file:///home/avdi/dev/brainguy/.gitignore&#10;.ignore&#9;ACTION&#9;Ignore.New&#10;subset&#9;FILE&#9;file:///home/avdi/dev/brainguy/lib/brainguy/subscription_set.rb&#10;pull&#9;ACTION&#9;MembersPullUp&#10;settings&#9;null&#9;null&#10;structure&#9;ACTION&#9;ActivateStructureToolWindow&#10;histo&#9;ACTION&#9;Vcs.ShowTabbedFileHistory&#10;gemsp&#9;FILE&#9;file:///home/avdi/dev/brainguy/brainguy.gemspec&#10;extract&#9;ACTION&#9;IntroduceActionsGroup&#10;folding&#9;ACTION&#9;FoldingGroup&#10;foldin&#9;ACTION&#9;FoldingGroup&#10;fold&#9;ACTION&#9;GotoCustomRegion&#10;bundle&#9;ACTION&#9;org.jetbrains.plugins.ruby.gem.bundler.actions.RunBundlerInstallAction" />
     <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="227" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
@@ -324,7 +325,7 @@
       <recent name="$PROJECT_DIR$/spec" />
     </key>
   </component>
-  <component name="RunManager" selected="RSpec.Run spec 'idempotent_events_spec': brainguy">
+  <component name="RunManager" selected="RSpec.All Specs">
     <configuration default="false" name=" is equal to another subscription with the same owner and listener: brainguy" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="brainguy" />
@@ -831,28 +832,40 @@
       <option name="project" value="LOCAL" />
       <updated>1433095331667</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="First cut at idempotent events.">
+      <created>1433099376175</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1433099376175</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Refactor listener removal.">
+      <created>1433099562014</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1433099562014</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="24" width="1313" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3316252" sideWeight="0.66096866" order="0" side_tool="false" content_ui="combo" x="768" y="52" width="390" height="715" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252149" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32808024" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Heroku" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4893978" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3310165" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36717662" sideWeight="0.99895835" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24739583" sideWeight="0.67019403" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36717662" sideWeight="0.99895835" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5825" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="0" y="268" width="1366" height="229" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33130237" sideWeight="0.66096866" order="0" side_tool="false" content_ui="combo" x="768" y="52" width="390" height="715" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24739583" sideWeight="0.67019403" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51877606" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252149" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32808024" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3988604" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -898,8 +911,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Inline some variables" />
-    <MESSAGE value="Begin to support listing events" />
     <MESSAGE value="Extract #add_event helper" />
     <MESSAGE value="Rename @handlers to @events" />
     <MESSAGE value="Rename add_event to add_event_type" />
@@ -923,7 +934,9 @@
     <MESSAGE value="Rewrite top-level spec to use more relatable terminology." />
     <MESSAGE value="Switch an example to use block expectation syntax." />
     <MESSAGE value="Don't use Eventful module in high-level spec." />
-    <option name="LAST_COMMIT_MESSAGE" value="Don't use Eventful module in high-level spec." />
+    <MESSAGE value="First cut at idempotent events." />
+    <MESSAGE value="Refactor listener removal." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor listener removal." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -937,7 +950,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="23" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="23" />
-          <folding />
+          <folding>
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder="do ... end" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -945,20 +965,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
-          <folding>
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -994,13 +1001,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.017514596">
           <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/brainguy/full_subscription.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09130435">
-          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1049,17 +1049,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50993377">
-          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/brainguy.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08659794">
           <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1074,6 +1068,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.5736637">
           <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1096,49 +1091,78 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
+    <entry file="file://$PROJECT_DIR$/lib/brainguy/full_subscription.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14623955">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.08774373">
+          <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
           <folding>
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432962717919" expanded="true" signature="-1:-1" placeholder="{ ... }" />
+            <marker date="1432961146719" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1432961146719" expanded="true" signature="-1:-1" placeholder=" ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/brainguy/single_event_subscription.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2632312">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <marker date="1433100061281" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061281" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061281" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061281" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061281" expanded="true" signature="-1:-1" placeholder=" ... end" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2103064">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.4972145">
+          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
           <folding>
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder="#..." />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1433046445599" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder="#..." />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100061257" expanded="true" signature="-1:-1" placeholder=" ... end" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/brainguy/idempotent_subscription_set.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5557103">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.08774373">
+          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
+          <folding>
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder=" ... end" />
+            <marker date="1433100145085" expanded="true" signature="-1:-1" placeholder="do ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/brainguy/event.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.029247912">
+          <caret line="1" column="43" selection-start-line="1" selection-start-column="43" selection-end-line="1" selection-end-column="43" />
+          <folding>
+            <marker date="1433100258833" expanded="true" signature="-1:-1" placeholder=" ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/brainguy/subscription_set.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13876653">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
           <folding />
         </state>
       </provider>

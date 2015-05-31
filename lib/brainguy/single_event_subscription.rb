@@ -7,8 +7,8 @@ module Brainguy
       super(owner, listener)
     end
 
-    def handle(event_source, event_name, extra_args)
-      return unless event_name == @subscribed_event_name
+    def handle(event)
+      return unless event.name == @subscribed_event_name
       super
     end
 

@@ -14,8 +14,8 @@ module Brainguy
       freeze
     end
 
-    def handle(event_source, event_name, extra_args)
-      @listener.call(event_source, event_name, *extra_args)
+    def handle(event)
+      @listener.call(event.source, event.name, *event.args)
     end
 
     def cancel

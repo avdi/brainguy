@@ -3,7 +3,11 @@ require "brainguy"
 
 module Brainguy
   class AuctionBid
-    include Eventful
+    attr_reader :events
+
+    def initialize
+      @events = Brainguy::SubscriptionSet.new(self)
+    end
 
     def reject_bid
       events.emit(:rejected)

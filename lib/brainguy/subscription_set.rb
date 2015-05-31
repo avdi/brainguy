@@ -2,12 +2,18 @@ require "delegate"
 require "brainguy/full_subscription"
 require "brainguy/single_event_subscription"
 require "brainguy/event"
+require "brainguy/basic_notifier"
 
 module Brainguy
   class SubscriptionSet < DelegateClass(Set)
-    def initialize(event_source)
+    DEFAULT_NOTIFIER = BasicNotifier.new
+
+    def initialize(event_source, options = {})
       super(Set.new)
-      @event_source = event_source
+      @event_source   = event_source
+      @notifier_maker = options.fetch(:notifier_maker) {
+        ->() { DEFAULT_NOTIFIER }
+      }
     end
 
     def attach(new_listener)
@@ -27,9 +33,12 @@ module Brainguy
     end
 
     def emit(event_name, *extra_args)
+      notifier = @notifier_maker.call
       each do |subscription|
-        subscription.handle(Event.new(event_name, @event_source, extra_args))
+        event = Event.new(event_name, @event_source, extra_args)
+        notifier.notify(subscription, event)
       end
+      notifier.result
     end
   end
 end

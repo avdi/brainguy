@@ -12,4 +12,4 @@
 *.o
 *.a
 mkmf.log
-/.idea
+/.idea/

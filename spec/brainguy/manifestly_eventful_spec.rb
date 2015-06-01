@@ -22,5 +22,16 @@ module Brainguy
       obj = klass.new
       expect(obj.events.known_types).to eq([:red, :green])
     end
+
+    it "inherits event names" do
+      parent = Class.new do
+        include ManifestlyEventful.new(:red, :green)
+      end
+      child = Class.new(parent) do
+        include ManifestlyEventful.new(:yellow)
+      end
+      obj = child.new
+      expect(obj.events.known_types).to eq([:red, :green, :yellow])
+    end
   end
 end

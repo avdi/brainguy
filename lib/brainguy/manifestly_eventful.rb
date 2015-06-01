@@ -5,6 +5,7 @@ module Brainguy
   class ManifestlyEventful < Module
     # Look out, this gets a bit gnarly.
     def initialize(*known_events)
+      @known_events = known_events
       # Define the module body
       super() do
         # First off, let's make sure we have basic Eventful functionality
@@ -38,6 +39,10 @@ module Brainguy
           @brainguy_events
         end
       end
+    end
+
+    def to_s
+      "ManifestlyEventful(#{@known_events.map(&:inspect).join(', ')})"
     end
   end
 end

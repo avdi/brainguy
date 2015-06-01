@@ -11,7 +11,7 @@ module Brainguy
       klass = Class.new do
         include ManifestlyEventful.new(:red, :green)
       end
-      obj = klass.new
+      obj   = klass.new
       expect(obj.events).to be_a(ManifestSubscriptionSet)
     end
 
@@ -19,7 +19,7 @@ module Brainguy
       klass = Class.new do
         include ManifestlyEventful.new(:red, :green)
       end
-      obj = klass.new
+      obj   = klass.new
       expect(obj.events.known_types).to eq([:red, :green])
     end
 
@@ -27,11 +27,17 @@ module Brainguy
       parent = Class.new do
         include ManifestlyEventful.new(:red, :green)
       end
-      child = Class.new(parent) do
+      child  = Class.new(parent) do
         include ManifestlyEventful.new(:yellow)
       end
-      obj = child.new
+      obj    = child.new
       expect(obj.events.known_types).to eq([:red, :green, :yellow])
     end
+
+    it "stringifies meaningfully" do
+      mod = ManifestlyEventful.new(:red, :green)
+      expect(mod.to_s).to eq("ManifestlyEventful(:red, :green)")
+    end
+
   end
 end

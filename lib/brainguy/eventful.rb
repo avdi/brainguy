@@ -1,4 +1,5 @@
 require "forwardable"
+require "brainguy/subscription_set"
 
 module Brainguy
   module Eventful

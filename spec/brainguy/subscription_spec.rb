@@ -7,8 +7,8 @@ module Brainguy
     it "is equal to another subscription with the same owner and listener" do
       listener = double("listener")
       owner    = double("owner")
-      sub1 = Subscription.new(owner, listener)
-      sub2 = Subscription.new(owner, listener)
+      sub1     = Subscription.new(owner, listener)
+      sub2     = Subscription.new(owner, listener)
       expect(sub1).to eq(sub2)
       expect(sub1.hash).to eq(sub2.hash)
       expect(sub1).to eql(sub2)
@@ -22,8 +22,8 @@ module Brainguy
 
     it "is not equal to another subscription with a different owner" do
       listener = double("listener")
-      sub1 = Subscription.new(double, listener)
-      sub2 = Subscription.new(double, listener)
+      sub1     = Subscription.new(double, listener)
+      sub2     = Subscription.new(double, listener)
       expect(sub1).not_to eq(sub2)
       expect(sub1.hash).not_to eq(sub2.hash)
       expect(sub1).not_to eql(sub2)
@@ -31,8 +31,8 @@ module Brainguy
 
     it "is not equal to another subscription with a different listener" do
       owner = double("owner")
-      sub1 = Subscription.new(owner, double)
-      sub2 = Subscription.new(owner, double)
+      sub1  = Subscription.new(owner, double)
+      sub2  = Subscription.new(owner, double)
       expect(sub1).not_to eq(sub2)
       expect(sub1.hash).not_to eq(sub2.hash)
       expect(sub1).not_to eql(sub2)

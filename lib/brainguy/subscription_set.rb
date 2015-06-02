@@ -3,6 +3,7 @@ require "brainguy/full_subscription"
 require "brainguy/single_event_subscription"
 require "brainguy/event"
 require "brainguy/basic_notifier"
+require "brainguy/open_listener"
 
 module Brainguy
   class SubscriptionSet < DelegateClass(Set)
@@ -26,11 +27,17 @@ module Brainguy
       delete(FullSubscription.new(self, listener))
     end
 
-    def on(event_name, &block)
-      SingleEventSubscription.new(self, block, event_name).tap do |subscription|
-        self << subscription
+    def on(name_or_handlers, &block)
+      case name_or_handlers
+      when Symbol
+        attach_to_single_event(name_or_handlers, block)
+      when Hash
+        attach(OpenListener.new(name_or_handlers))
+      else
+        fail ArgumentError, "Event name or Hash required"
       end
     end
+
 
     def emit(event_name, *extra_args)
       notifier = @notifier_maker.call
@@ -40,5 +47,15 @@ module Brainguy
       end
       notifier.result
     end
+
+    private
+
+    def attach_to_single_event(event_name, block)
+      SingleEventSubscription.new(self, block, event_name).tap do
+      |subscription|
+        self << subscription
+      end
+    end
   end
+
 end

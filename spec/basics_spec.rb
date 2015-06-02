@@ -93,10 +93,10 @@ module Brainguy
       bid.events.attach(listener)
 
       bid.reject_bid
-      expect(listener).to have_received(:call).with(bid, :rejected)
+      expect(listener).to have_received(:call).with(Event[:rejected, bid])
 
       bid.accept_bid
-      expect(listener).to have_received(:call).with(bid, :accepted)
+      expect(listener).to have_received(:call).with(Event[:accepted, bid])
     end
 
     it "allows a listener to be unsubscribed" do
@@ -105,12 +105,12 @@ module Brainguy
       subscription = bid.events.attach(listener)
 
       bid.reject_bid
-      expect(listener).to have_received(:call).with(bid, :rejected)
+      expect(listener).to have_received(:call).with(Event[:rejected, bid])
 
       subscription.cancel
 
       bid.accept_bid
-      expect(listener).not_to have_received(:call).with(bid, :accepted)
+      expect(listener).not_to have_received(:call).with(Event[:accepted, bid])
     end
 
     it "allows a listener to be unsubscribed by identity" do
@@ -119,13 +119,13 @@ module Brainguy
       bid.events.attach(listener)
 
       bid.reject_bid
-      expect(listener).to have_received(:call).with(bid, :rejected)
+      expect(listener).to have_received(:call).with(Event[:rejected, bid])
 
       bid.events.detach(listener)
       expect(bid.events).to be_empty
 
       bid.accept_bid
-      expect(listener).not_to have_received(:call).with(bid, :accepted)
+      expect(listener).not_to have_received(:call).with(Event[:accepted, bid])
     end
 
     it "does not allow the same listener to be subscribed twice" do

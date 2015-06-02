@@ -15,7 +15,7 @@ module Brainguy
     end
 
     def handle(event)
-      @listener.call(event.source, event.name, *event.args)
+      @listener.call(event)
     end
 
     def cancel

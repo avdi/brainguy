@@ -1,4 +1,5 @@
 require "brainguy/version"
+require "brainguy/event"
 require "brainguy/subscription_set"
 require "brainguy/idempotent_subscription_set"
 require "brainguy/eventful"

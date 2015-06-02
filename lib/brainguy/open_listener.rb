@@ -4,9 +4,9 @@ module Brainguy
       @handlers = handlers
     end
 
-    def call(event_source, event_name, *event_args)
-      if handler = @handlers[event_name]
-        handler.call(event_source, event_name, *event_args)
+    def call(event)
+      if handler = @handlers[event.name]
+        handler.call(event)
       end
     end
 

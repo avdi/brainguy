@@ -22,9 +22,15 @@ module Brainguy
       r.successful_response
       listener = spy("listener")
       r.events.attach(listener)
-      expect(listener).to have_received(:call).with(r, :data, "Hello, ").ordered
-      expect(listener).to have_received(:call).with(r, :data, "World!").ordered
-      expect(listener).to have_received(:call).with(r, :success).ordered
+      expect(listener).to have_received(:call)
+                              .with(Event[:data, r, ["Hello, "]])
+                              .ordered
+      expect(listener).to have_received(:call)
+                              .with(Event[:data, r, ["World!"]])
+                              .ordered
+      expect(listener).to have_received(:call)
+                              .with(Event[:success, r])
+                              .ordered
     end
 
     it "replays events when a single-event handler subscribes late" do
@@ -40,9 +46,15 @@ module Brainguy
       listener = spy("listener")
       r.events.attach(listener)
       r.successful_response
-      expect(listener).to have_received(:call).with(r, :data, "Hello, ").ordered
-      expect(listener).to have_received(:call).with(r, :data, "World!").ordered
-      expect(listener).to have_received(:call).with(r, :success).ordered
+      expect(listener).to have_received(:call)
+                              .with(Event[:data, r, ["Hello, "]])
+                              .ordered
+      expect(listener).to have_received(:call)
+                              .with(Event[:data, r, ["World!"]])
+                              .ordered
+      expect(listener).to have_received(:call)
+                              .with(Event[:success, r])
+                              .ordered
     end
 
     it "does not repeat events to preexisting listeners" do

@@ -38,7 +38,6 @@ module Brainguy
       end
     end
 
-
     def emit(event_name, *extra_args)
       notifier = @notifier_maker.call
       each do |subscription|
@@ -57,5 +56,4 @@ module Brainguy
       end
     end
   end
-
 end

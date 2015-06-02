@@ -157,5 +157,18 @@ module Brainguy
       bid.reject_bid
       expect(listener).to have_received(:call).once
     end
+
+    it "provides scoped subscriptions" do
+      bid   = AuctionBid.new
+      probe = spy("probe")
+      bid.events.with_subscription_scope do |scope|
+        scope.on(:rejected) do
+          probe.handle_rejection
+        end
+        bid.reject_bid
+      end
+      bid.reject_bid
+      expect(probe).to have_received(:handle_rejection).once
+    end
   end
 end

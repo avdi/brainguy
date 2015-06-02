@@ -2,6 +2,7 @@ module Brainguy
   class OpenListener
     def initialize(handlers = {})
       @handlers = handlers
+      yield self if block_given?
     end
 
     def call(event)

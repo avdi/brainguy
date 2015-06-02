@@ -24,5 +24,11 @@ module Brainguy
       listener.call(e2 = Event[:withdrawal])
       expect(listener).to have_received(:handle_withdrawal).with(e2)
     end
+
+    it "ignores events which lack handler methods" do
+      listener = AccountListener.new
+      expect{ listener.call(Event[:not_defined]) }.to_not raise_error
+    end
+
   end
 end

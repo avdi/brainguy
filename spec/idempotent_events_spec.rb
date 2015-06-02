@@ -32,8 +32,7 @@ module Brainguy
       r.successful_response
       expect do |b|
         r.events.on(:data, &b)
-      end.to yield_successive_args([r, :data, "Hello, "],
-                                   [r, :data, "World!"])
+      end.to yield_successive_args("Hello, ", "World!")
     end
 
     it "passes events on to existing listeners immediately" do

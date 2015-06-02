@@ -69,33 +69,12 @@ module Brainguy
       expect { bid.reject_bid }.to_not raise_error
     end
 
-    it "passes the event emitting object to handler blocks" do
-      bid = AuctionBid.new
-      expect do |b|
-        bid.events.on(:rejected, &b)
-        bid.reject_bid
-      end.to yield_with_args(bid, anything)
-      expect do |b|
-        bid.events.on(:accepted, &b)
-        bid.accept_bid
-      end.to yield_with_args(bid, anything)
-    end
-
-    it "passes the event name to handler blocks" do
-      bid = AuctionBid.new
-      expect do |b|
-        bid.events.on(:rejected, &b)
-        bid.reject_bid
-      end.to yield_with_args(anything, :rejected)
-    end
-
     it "passes extra event args on to the handler block" do
       bid = AuctionBid.new
       expect do |b|
         bid.events.on(:rejected, &b)
         bid.make_counter_offer
-      end.to yield_with_args(anything, anything,
-                             {counter_amount:    101,
+      end.to yield_with_args({counter_amount:    101,
                               valid_for_minutes: 60})
     end
 

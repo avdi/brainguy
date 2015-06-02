@@ -9,7 +9,7 @@ module Brainguy
 
     def handle(event)
       return unless event.name == @subscribed_event_name
-      super
+      @listener.call(*event.args)
     end
 
     def equality_components

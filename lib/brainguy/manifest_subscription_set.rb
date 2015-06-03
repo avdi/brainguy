@@ -41,7 +41,8 @@ module Brainguy
 
     def check_event_name(event_name)
       unless @known_types.include?(event_name)
-        message = "##{__callee__} received for unknown event type '#{event_name}'"
+        message =
+            "##{__callee__} received for unknown event type '#{event_name}'"
         @policy.call(message)
       end
     end

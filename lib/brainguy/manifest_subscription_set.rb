@@ -8,7 +8,7 @@ module Brainguy
   class ManifestSubscriptionSet < DelegateClass(SubscriptionSet)
     WARN_POLICY        = Kernel.method(:warn)
     RAISE_ERROR_POLICY = ->(message) do
-      raise UnknownEvent, message, caller(4)
+      raise UnknownEvent, message, caller.drop_while{|l| l.include?(__FILE__)}
     end
 
     attr_reader :known_types

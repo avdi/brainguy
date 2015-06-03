@@ -13,8 +13,8 @@ module Brainguy
     it "can set up multiple handlers at once with a hash of lambdas" do
       ss     = SubscriptionSet.new(double)
       probe  = spy("probe")
-      result = ss.on(foo: -> (*){ probe.handle_foo },
-                     bar: -> (*){ probe.handle_bar })
+      result = ss.on(foo: proc { probe.handle_foo },
+                     bar: proc { probe.handle_bar })
       expect(result.listener).to be_a(OpenListener)
       ss.emit(:foo)
       ss.emit(:bar)

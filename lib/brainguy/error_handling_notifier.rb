@@ -34,7 +34,7 @@ module Brainguy
       when :suppress then SUPPRESS_STRATEGY
       when :warn     then WARN_STRATEGY
       when :raise    then RAISE_STRATEGY
-      when Symbol    then raise ArgumentError, "Unknown mnemonic: #{handler}"
+      when Symbol    then fail ArgumentError, "Unknown mnemonic: #{handler}"
       else handler
       end
     end

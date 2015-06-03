@@ -62,7 +62,7 @@ module Brainguy
       SubscriptionScope.open(set) do |scope|
         scope.on(:foo)
         scope.attach(double)
-        raise "Whoopsie"
+        fail "Whoopsie"
       end rescue nil
 
       expect(sub1).to have_received(:cancel)

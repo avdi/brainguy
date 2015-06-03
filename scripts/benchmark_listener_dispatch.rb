@@ -200,7 +200,7 @@ def do_test(klass)
   testbed.call(e3 = Event[:baz])
   testbed.call(Event[:buz])
   unless testbed.event_log == [e1, e2, e3]
-    raise "#{klass}: #{testbed.event_log.inspect}"
+    fail "#{klass}: #{testbed.event_log.inspect}"
   end
 end
 

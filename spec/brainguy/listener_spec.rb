@@ -4,6 +4,9 @@ require "brainguy/listener"
 module Brainguy
   RSpec.describe Listener do
     class AccountListener
+      def handle_open(event)
+      end
+
       include Listener
 
       def handle_deposit(event)
@@ -23,6 +26,19 @@ module Brainguy
 
       listener.call(e2 = Event[:withdrawal])
       expect(listener).to have_received(:handle_withdrawal).with(e2)
+    end
+
+    it "picks up handler methods defined before module inclusion" do
+      klass = Class.new do
+        def handle_open(event)
+
+        end
+        include Listener
+      end
+      listener = klass.new
+      allow(listener).to receive(:handle_open)
+      listener.call(e2 = Event[:open])
+      expect(listener).to have_received(:handle_open).with(e2)
     end
 
     it "ignores events which lack handler methods" do

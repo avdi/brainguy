@@ -3,26 +3,35 @@ require "brainguy/event"
 module Brainguy
   module Listener
     module ClassMethods
+      HANDLER_METHOD_PATTERN = /\Ahandle_(.+)\z/
+
       def method_added(method_name)
-        if method_name.to_s =~ /\Ahandle_(.+)\z/
-          brainguy_handler_methods[$1.to_sym] = method_name.to_sym
+        if method_name.to_s =~ HANDLER_METHOD_PATTERN
+          regenerate_dispatch_method
         end
         super
       end
 
-      def brainguy_handler_methods
-        @brainguy_handler_methods ||= {}
+      def regenerate_dispatch_method
+        dispatch_table = instance_methods
+                             .map(&:to_s)
+                             .grep(HANDLER_METHOD_PATTERN) { |method_name|
+          event_name = $1
+          "when :#{event_name} then #{method_name}(event)"
+        }.join("\n")
+        class_eval %{
+          def call(event)
+            case event.name
+            #{dispatch_table}
+            end
+          end
+        }
       end
     end
 
     def self.included(klass)
       klass.extend(ClassMethods)
-    end
-
-    def call(event)
-      if handler_method = self.class.brainguy_handler_methods[event.name]
-        __send__(handler_method, event)
-      end
+      klass.regenerate_dispatch_method
     end
   end
 end

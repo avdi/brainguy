@@ -29,10 +29,11 @@ module Brainguy
     end
 
     it "picks up handler methods defined before module inclusion" do
-      klass = Class.new do
+      klass    = Class.new do
         def on_open(event)
 
         end
+
         include Listener
       end
       listener = klass.new
@@ -43,7 +44,28 @@ module Brainguy
 
     it "ignores events which lack handler methods" do
       listener = AccountListener.new
-      expect{ listener.call(Event[:not_defined]) }.to_not raise_error
+      expect { listener.call(Event[:not_defined]) }.to_not raise_error
+    end
+
+    it "doesn't blow up on a handler-less class" do
+      expect do
+        Class.new do
+          include Listener
+        end
+      end.to_not raise_error
+    end
+
+    it "passes unknown events to a catch-all method" do
+      events = []
+      klass = Class.new do
+        include Listener
+        define_method :event_handler_missing do |event|
+          events << event
+        end
+      end
+      listener = klass.new
+      listener.call(unknown_event = Event[:unknown_event])
+      expect(events).to eq([unknown_event])
     end
 
   end

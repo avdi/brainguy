@@ -3,7 +3,7 @@ require "brainguy/event"
 module Brainguy
   module Listener
     module ClassMethods
-      HANDLER_METHOD_PATTERN = /\Ahandle_(.+)\z/
+      HANDLER_METHOD_PATTERN = /\Aon_(.+)\z/
 
       def method_added(method_name)
         if method_name.to_s =~ HANDLER_METHOD_PATTERN

@@ -6,7 +6,7 @@ module Brainguy
     end
 
     def call(event)
-      if handler = @handlers[event.name]
+      if (handler = @handlers[event.name])
         handler.call(event)
       end
     end

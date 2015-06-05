@@ -2,7 +2,7 @@ require "rspec"
 
 require "brainguy"
 
-describe "method-scoped subscriptions" do
+describe "method-scoped subscription set" do
   class Kitten
     def play(&block)
       Brainguy.with_subscription_scope(self, block) do |events|
@@ -48,5 +48,36 @@ describe "method-scoped subscriptions" do
     expect(listener).to have_received(:call).with(Brainguy::Event[:pounce, kitten])
     expect(listener).to have_received(:call).with(Brainguy::Event[:hiss, kitten])
     expect(listener).to have_received(:call).with(Brainguy::Event[:purr, kitten])
+  end
+
+  class Dog
+    include Brainguy::Eventful
+
+    def play_fetch
+      emit(:chase_stick)
+    end
+
+    def play(&block)
+      with_subscription_scope(block) do |events|
+        emit(:bark)
+        play_fetch
+        emit(:pant)
+      end
+    end
+  end
+
+  it "can be used in conjunction with an Eventful object" do
+    dog = Dog.new
+    lifetime_listener = spy("lifetime listener")
+    scoped_listener   = spy("scoped listener")
+    dog.events.attach(lifetime_listener)
+    dog.play do |events|
+      events.attach(scoped_listener)
+    end
+    dog.play_fetch
+    expect(lifetime_listener)
+        .to have_received(:call).with(Brainguy::Event[:chase_stick, dog]).twice
+    expect(scoped_listener)
+        .to have_received(:call).with(Brainguy::Event[:chase_stick, dog]).once
   end
 end

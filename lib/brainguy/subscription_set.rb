@@ -10,11 +10,15 @@ module Brainguy
     DEFAULT_NOTIFIER = BasicNotifier.new
 
     def initialize(event_source, options = {})
-      super(Set.new)
+      super(options[:subscriptions] || Set.new)
       @event_source   = event_source
       @notifier_maker = options.fetch(:notifier_maker) {
         ->() { DEFAULT_NOTIFIER }
       }
+    end
+
+    def subscriptions
+      __getobj__
     end
 
     def attach(new_listener)

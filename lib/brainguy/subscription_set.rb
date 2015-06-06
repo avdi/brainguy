@@ -9,6 +9,10 @@ module Brainguy
   class SubscriptionSet < DelegateClass(Set)
     DEFAULT_NOTIFIER = BasicNotifier.new
 
+    def self.new_from_existing(event_source, subscription_set)
+      new(event_source, subscriptions: subscription_set.subscriptions)
+    end
+
     def initialize(event_source, options = {})
       super(options[:subscriptions] || Set.new)
       @event_source   = event_source

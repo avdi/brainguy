@@ -1,6 +1,6 @@
 require "rspec"
 require "brainguy/manifestly_eventful"
-require "shared_examples_for_eventful_modules"
+require "support/shared_examples_for_eventful_modules"
 
 module Brainguy
   RSpec.describe ManifestlyEventful do

@@ -1,6 +1,6 @@
 require "rspec"
 require "brainguy/eventful"
-require "shared_examples_for_eventful_modules"
+require "support/shared_examples_for_eventful_modules"
 
 module Brainguy
   RSpec.describe Eventful do

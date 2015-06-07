@@ -2,7 +2,7 @@
 
 ![Observer, AKA "Brain Guy"](http://static.tvtropes.org/pmwiki/pub/images/MST3K_Brain_Guy_7093.jpg)
 
-Brainguy is an Observer library. This is probably funnier if you are a 
+Brainguy is an Observer library. This is probably more amusing if you are a 
 Mystery Science Theater 3000 fan.
 
 ## Installation

@@ -7,10 +7,18 @@ require "brainguy/subscription_scope"
 require "brainguy/fluent_subscription_set"
 
 module Brainguy
+  # Execute passed block with a temporary subscription scope. See README for
+  # examples.
+  #
+  # @param source   the object initiating the event
+  # @param listener_block [:call] an optional callable that should hook up
+  #   listeners
+  # @param subscription_set [SubscriptionSet] an existing subscription set to
+  #   layer on top of
   def self.with_subscription_scope(
       source,
-          listener_block = nil,
-          subscription_set = IdempotentSubscriptionSet.new(source))
+      listener_block   = nil,
+      subscription_set = IdempotentSubscriptionSet.new(source))
     subscription_set.with_subscription_scope do |scope|
       listener_block.call(scope) if listener_block
       yield scope

@@ -9,12 +9,14 @@ require "brainguy/fluent_subscription_set"
 module Brainguy
   def self.with_subscription_scope(
       source,
-      listener_block   = nil,
-      subscription_set = IdempotentSubscriptionSet.new(source))
+          listener_block = nil,
+          subscription_set = IdempotentSubscriptionSet.new(source))
     subscription_set.with_subscription_scope do |scope|
       listener_block.call(scope) if listener_block
       yield scope
     end
-    FluentSubscriptionSet.new(subscription_set)
+    unless listener_block
+      FluentSubscriptionSet.new(subscription_set)
+    end
   end
 end

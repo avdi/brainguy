@@ -50,6 +50,13 @@ describe "method-scoped subscription set" do
     expect(listener).to have_received(:call).with(Brainguy::Event[:purr, kitten])
   end
 
+  it "returns nil when passed a block" do
+    kitten = Kitten.new
+    result = kitten.play do
+    end
+    expect(result).to be_nil
+  end
+
   class Dog
     include Brainguy::Eventful
 

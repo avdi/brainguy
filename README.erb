@@ -69,7 +69,7 @@ An event is *named* with a symbol. But there is some other information that norm
 Extra arguments can be added to an event by passing extra arguments to the `#emit`, like this:
 
 ```ruby
-events.emit(:movie_sign, movie_title: "Giant Spider Invasion"
+events.emit(:movie_sign, movie_title: "Giant Spider Invasion")
 ```
 
 For convenience, the event name, source, and arguments are all bundled into an `Event` object before being disseminated to observers.
@@ -231,7 +231,7 @@ class Connection
   include Brainguy::Observable
 
   def request(method, path, &block)
-    with_subscription_scope do
+    with_subscription_scope(block) do
       # ...
     end
   end
@@ -252,15 +252,15 @@ connection.request(:get, "/")
 
 *How the heck does that work?*
 
-If the method is called without a block, events are queued up in an `IdempotentEmitter`. This is a special kind of emitter that "plays back" any events that an observer missed, as soon as it is attached.
+If the method is called without a block, events are queued up in an {Brainguy::IdempotentEmitter}. This is a special kind of emitter that "plays back" any events that an observer missed, as soon as it is attached.
 
-Then it's wrapped in a special `FluentEmitter` before being returned. This enables the "chained" calling style you can see in the example above. Normally, sending `#on` would return a `Subscription` object, so that wouldn't work.
+Then it's wrapped in a special {Brainguy::FluentEmitter} before being returned. This enables the "chained" calling style you can see in the example above. Normally, sending `#on` would return a {Brainguy::Subscription} object, so that wouldn't work.
 
 The upshot is that all the events are collected over the course of the method's execution. Then they are played back on each handler as it is added.
 
 *What if I **only** want eventful methods? I don't want my object to carry a long-lived list of observers around?*
 
-Gotcha covered. You can use `Brainguy.with_subscription_scope` to add a temporary subscription scope to any method without first including `Brainguy::Observable`.
+Gotcha covered. You can use {Brainguy.with_subscription_scope} to add a temporary subscription scope to any method without first including {Brainguy::Observable}.
 
 ```ruby
 class Connection
@@ -273,6 +273,49 @@ class Connection
   # ...
 end
 ```
+
+*This is a lot to take in. Anything else you want to tell me about?*
+
+We've covered most of the major features. One thing we haven't talked about is error suppression.
+
+### Suppressing errors
+
+*Why would you want to suppress errors?*
+
+Well, we all know that observers effect the thing being observed. But it can be nice to minimize that effect as much as possible. For instance, if you have a critical process that's being observed, you may want to ensure that spurious errors inside of observers don't cause it to crash.
+
+*Yeah, I could see where that could be a problem.*
+
+So there are some tools for setting a policy in place for what to do with errors in event handlers, including turning them into warnings, suppressing them entirely, or building a list of errors.
+
+I'm not going to go over them in detail here in the README, but you should check out {Brainguy::ErrorHandlingNotifier} and {Brainguy::ErrorCollectingNotifier}, along with their spec files, for more information. They are pretty easy to use.
+
+## FAQ
+
+*Is this library like ActiveRecord callbacks? Or like Rails observers?*
+
+No. ActiveRecord enables callbacks to be enabled at a class level, so that every instance is implicitly being subscribed to. Rails "observers" enable observers to be added with no knowledge whatsoever on the part of the objects being observed.
+
+Brainguy explicitly eschews this kind of "spooky action at a distance". If you want to be notified of what goes on inside an object, you have to subscribe to that object.
+
+*Is this an aspect-oriented programming library? Or a lisp-style "method advice" system?*
+
+No. Aspect-oriented programming and lisp-style method advice are more ways of adding "spooky action at a distance", where the code being advised may have no idea that it is having foreign logic attached to it. As well as no control over *where* that foreign logic is applied.
+
+In Brainguy, by contrast, objects are explicitly subscribed-to, and events are explicitly emitted.
+
+*Is this a library for "Reactive Programming"?*
+
+Not in and of itself. It could potentially serve as the foundation for such a library though.
+
+*Is this a library for creating "hooks"?*
+
+Sort of. Observers do let you "hook" arbitrary handlers to events in other objects. However, this library is not aimed at enabling you to create hooks that *modify* the behavior of other methods. It's primarily intended to allow objects to be *notified* of significant events, without interfering in the processing of the object sending out the notifications.
+
+*Is this an asynchronous messaging or reactor system?*
+
+No. Brainguy events are processed synchronously have no awareness of concurrency.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -295,7 +338,7 @@ Coming soon!
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/brainguy/fork )
+1. Fork it ( https://github.com/avdi/brainguy/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

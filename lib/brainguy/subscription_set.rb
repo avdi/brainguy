@@ -6,13 +6,28 @@ require "brainguy/basic_notifier"
 require "brainguy/open_listener"
 
 module Brainguy
+  # This object keeps track of all the listeners (observers) subscribed to a
+  # particular event source object.
   class SubscriptionSet < DelegateClass(Set)
     DEFAULT_NOTIFIER = BasicNotifier.new
 
+    # Create a new {SubscriptionSet} that shares its inner dataset with an
+    # existing one. This exists so that it's possible to generate temporary
+    # copies of a {SubscriptionSet} with different, specialized semantics;
+    # for instance, an {IdempotentSubscriptionSet} that shares the same
+    # set of subscriptions as an existing {SubscriptionSet}.
+    # @param event_source [Object] the event-originating object
+    # @param subscription_set [SubscriptionSet] the existing set to share
+    #   subscriptions with
+    # @return [SubscriptionSet]
     def self.new_from_existing(event_source, subscription_set)
       new(event_source, subscriptions: subscription_set.subscriptions)
     end
 
+    # @param event_source [Object] the event-originating object
+    # @option options [Set<Subscription>] :subscriptions (Set.new) the
+    #   underlying set of subscriptions
+    # @option options [:call] :notifier_maker a factory for notifiers.
     def initialize(event_source, options = {})
       super(options[:subscriptions] || Set.new)
       @event_source   = event_source
@@ -21,20 +36,42 @@ module Brainguy
       }
     end
 
+    # @return [Set<Subscription>] the underlying set of subscription objects
     def subscriptions
       __getobj__
     end
 
+    # Attach a new object to listen for events. A listener is expected to be
+    # call-able, and it will receive the `#call` message with an {Event} each
+    # time one is emitted.
+    # @param new_listener [:call]
+    # @return [Subscription] a subscription object which can be used to
+    #   cancel the subscription.
     def attach(new_listener)
       FullSubscription.new(self, new_listener).tap do |subscription|
         self << subscription
       end
     end
 
+    # Detach a listener. This locates the subscription corresponding to the
+    # given listener (if any), and removes it.
+    # @param [:call] a listener to be unsubscribed
+    # @return [void]
     def detach(listener)
       delete(FullSubscription.new(self, listener))
     end
 
+    # Attach blocks of code to handle specific named events.
+    # @overload on(name, &block)
+    #   Attach a block to be called for a specific event. The block will be
+    #   called with the event arguments (not the event object).
+    #   @param name [Symbol]
+    #   @param block [Proc] what to do when the event is emitted
+    # @overload on(handlers)
+    #   Attach multiple event-specific handlers at once.
+    #   @param handlers [Hash{Symbol => [:call]}] a map of event names to
+    #     callable handlers.
+    # @return (see #attach)
     def on(name_or_handlers, &block)
       case name_or_handlers
       when Symbol
@@ -46,6 +83,11 @@ module Brainguy
       end
     end
 
+    # Emit an event to be distributed to all interested listeners.
+    # @param event_name [Symbol] the name of the event
+    # @param extra_args [Array] any extra arguments that should accompany the
+    #   event
+    # @return the notifier's result value
     def emit(event_name, *extra_args)
       notifier = @notifier_maker.call
       each do |subscription|

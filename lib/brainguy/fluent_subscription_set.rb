@@ -5,7 +5,7 @@ module Brainguy
   # A wrapper for a {SubscriptionSet} that enables a "fluent API" by
   # returning `self` from each method.
   #
-  # Enables code like this:
+  # @example Enables code like this:
   #
   #   kitten.on(:purr) do
   #     # handle purr...

@@ -2,9 +2,21 @@ require "brainguy/eventful"
 require "brainguy/manifest_subscription_set"
 
 module Brainguy
+  # A custom {Module} subclass which acts like {Eventful}, except with an
+  # event type manifest. This is a way to define an observable cladd with a
+  # known list of possible event types.
+  #
+  # @example
+  #   class MyApiRequest
+  #     include ManifestlyEventful.new(:success, :unauthorized, :error)
+  #     # ...
+  #   end
+  #
   class ManifestlyEventful < Module
-    # Look out, this gets a bit gnarly.
+
+    # Generate a new mixin module with a custom list of known event types.
     def initialize(*known_events)
+      # Look out, this gets a bit gnarly...
       @known_events = known_events
       # Define the module body
       super() do
@@ -22,7 +34,7 @@ module Brainguy
           if subscription_set.is_a?(ManifestSubscriptionSet)
             # just add our event types to its subscription set
             subscription_set.known_types.concat(known_events)
-          # But if this is the first ManifestlyEventful included...
+            # But if this is the first ManifestlyEventful included...
           else
             # Wrap the subscription set in a ManifestSubscriptionSet
             @brainguy_events = ManifestSubscriptionSet.new(subscription_set)
@@ -41,6 +53,8 @@ module Brainguy
       end
     end
 
+    # Return a meaningful description of the generated module.
+    # @return [String]
     def to_s
       "ManifestlyEventful(#{@known_events.map(&:inspect).join(', ')})"
     end

@@ -6,6 +6,7 @@ require "brainguy/eventful"
 require "brainguy/subscription_scope"
 require "brainguy/fluent_subscription_set"
 
+# Namespace for the `brainguy` gem. See {file:README.md} for usage instructions.
 module Brainguy
   # Execute passed block with a temporary subscription scope. See README for
   # examples.

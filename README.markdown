@@ -95,7 +95,7 @@ number of conveniences that you otherwise might have to build yourself on top of
 
 Well, the most important feature it has is *named event types*. Instead of a single "update" event, events have symbolic names. Observers can choose which events they care about, and ignore the rest.
 
-=== Defining some terms
+### Defining some terms
 
 *What exactly is a "observer"? Is it a special kind of object?*
 
@@ -140,7 +140,7 @@ events.emit(:movie_sign, movie_title: "Giant Spider Invasion"
 
 For convenience, the event name, source, and arguments are all bundled into an `Event` object before being disseminated to observers.
 
-=== Making an object observable
+### Making an object observable
 
 *OK, say I have an object that I want to make observable. How would I go about that?*
 
@@ -213,7 +213,7 @@ Very observant! `Observable` adds four methods to classes which mix it in:
 
 Nope! That's intentional. These are your classes, and I don't want to clutter up your API unnecessarily. `#on` and `#emit` are provided as conveniences for common actions. Anything else you need, you can get to via the `Emitter` returned from `#events`.
 
-=== Constraining event types
+### Constraining event types
 
 *I see that un-handled events are just ignored. Doesn't that make it easy to miss events because of a typo in the name?*
 
@@ -247,7 +247,7 @@ toaster.make_toast
 
 ```
 
-=== All about observers
+### All about observers
 
 *I'm still a little confused about `#on`. Is that just another way to add an observer?*
 
@@ -358,7 +358,7 @@ Yes, exactly. And through some metaprogramming, it is able to do this in a way t
 
 You can run the proof-of-concept benchmark for yourself! It's in the `scripts` directory.
 
-=== Managing subscription lifetime
+### Managing subscription lifetime
 
 *You know, it occurs to me that in the `Poem` example, it really doesn't make sense to have an `HtmlFormatter` plugged into a `Poem` forever. Is there a way to attach it before the call to `#recite`, and then detach it immediately after?
 
@@ -423,7 +423,7 @@ f.result
 
 In this example, the `HtmlFormatter` is only subscribed to poem events for the duration of the call to `#recite`. After that it is automatically detached.
 
-=== Replacing return values with events
+### Replacing return values with events
 
 *This is interesting. I can see this being useful for more than just traditionally event-generating objects*
 

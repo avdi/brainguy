@@ -7,12 +7,12 @@ module Brainguy
     include Comparable
 
     # @!attribute [r] owner
-    #   @return [SubscriptionSet] the owning {SubscriptionSet}
+    #   @return [Emitter] the owning {Emitter}
     # @!attribute [r] listener
     #   @return [:call] a callable listener object
     attr_reader :owner, :listener
 
-    # @param owner [SubscriptionSet] the owning {SubscriptionSet}
+    # @param owner [Emitter] the owning {Emitter}
     # @param listener [:call] a callable listener object
     def initialize(owner, listener)
       @owner    = owner

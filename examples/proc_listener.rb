@@ -1,6 +1,6 @@
 require "brainguy"
 
-events = Brainguy::SubscriptionSet.new
+events = Brainguy::Emitter.new
 listener = proc do |event|
   puts "Got event: #{event.name}"
 end

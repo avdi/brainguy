@@ -4,7 +4,7 @@ require "brainguy/subscription_scope"
 module Brainguy
   RSpec.describe SubscriptionScope do
     it "proxies subscriptions to an underlying subscription set" do
-      scope = SubscriptionScope.new(set = instance_double(SubscriptionSet))
+      scope = SubscriptionScope.new(set = instance_double(Emitter))
       allow(set).to receive(:on).and_return(sub1 = double("sub1"))
       allow(set).to receive(:attach).and_return(sub2 = double("sub2"))
       expect(scope.on(:foo)).to be(sub1)
@@ -14,7 +14,7 @@ module Brainguy
     end
 
     it "removes subscriptions on close" do
-      scope = SubscriptionScope.new(set = instance_double(SubscriptionSet))
+      scope = SubscriptionScope.new(set = instance_double(Emitter))
       allow(set).to receive(:on)
                         .and_return(sub1 = instance_spy(Subscription))
       allow(set).to receive(:attach)
@@ -27,7 +27,7 @@ module Brainguy
     end
 
     it "removes subscriptions only once" do
-      scope = SubscriptionScope.new(set = instance_double(SubscriptionSet))
+      scope = SubscriptionScope.new(set = instance_double(Emitter))
       allow(set).to receive(:on)
                         .and_return(sub1 = instance_spy(Subscription))
       scope.on(:foo)
@@ -37,7 +37,7 @@ module Brainguy
     end
 
     it "supports a block form" do
-      set = instance_double(SubscriptionSet)
+      set = instance_double(Emitter)
       allow(set).to receive(:on)
                         .and_return(sub1 = instance_spy(Subscription))
       allow(set).to receive(:attach)
@@ -53,7 +53,7 @@ module Brainguy
     end
 
     it "ensures subscriptions are cancelled despite errors in block" do
-      set = instance_double(SubscriptionSet)
+      set = instance_double(Emitter)
       allow(set).to receive(:on)
                         .and_return(sub1 = instance_spy(Subscription))
       allow(set).to receive(:attach)

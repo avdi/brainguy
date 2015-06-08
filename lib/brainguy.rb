@@ -1,6 +1,6 @@
 require "brainguy/version"
 require "brainguy/event"
-require "brainguy/subscription_set"
+require "brainguy/emitter"
 require "brainguy/idempotent_subscription_set"
 require "brainguy/eventful"
 require "brainguy/subscription_scope"
@@ -15,7 +15,7 @@ module Brainguy
   # @param source   the object initiating the event
   # @param listener_block [:call] an optional callable that should hook up
   #   listeners
-  # @param subscription_set [SubscriptionSet] an existing subscription set to
+  # @param subscription_set [Emitter] an existing subscription set to
   #   layer on top of
   def self.with_subscription_scope(
       source,

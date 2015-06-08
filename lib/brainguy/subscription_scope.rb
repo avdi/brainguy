@@ -1,4 +1,4 @@
-require "brainguy/subscription_set"
+require "brainguy/emitter"
 require "delegate"
 
 module Brainguy
@@ -7,10 +7,10 @@ module Brainguy
   # Sometimes it's useful to have a set of subscriptions with a limited
   # lifetime. For instance, a set of observers which are only valid over the
   # course of a single method call. This class wraps an existing
-  # {SubscriptionSet}, and exposes the same API. But when a client sends the
+  # {Emitter}, and exposes the same API. But when a client sends the
   # `#close` message, all listeners subscribed through this object will be
   # immediately unsubscribed.
-  class SubscriptionScope < DelegateClass(SubscriptionSet)
+  class SubscriptionScope < DelegateClass(Emitter)
 
     # Create a new scope and yield it to the block. Closes the scope
     # (unsubscribing any listeners attached using the scope) at the end of
@@ -24,20 +24,20 @@ module Brainguy
       scope.close
     end
 
-    # @param subscription_set [SubscriptionSet] the subscription set to wrap
+    # @param subscription_set [Emitter] the subscription set to wrap
     def initialize(subscription_set)
       super(subscription_set)
       @subscriptions = []
     end
 
-    # (see SubscriptionSet#on)
+    # (see Emitter#on)
     def on(*)
       super.tap do |subscription|
         @subscriptions << subscription
       end
     end
 
-    # (see SubscriptionSet#attach)
+    # (see Emitter#attach)
     def attach(*)
       super.tap do |subscription|
         @subscriptions << subscription
@@ -52,9 +52,9 @@ module Brainguy
     end
   end
 
-  class SubscriptionSet
+  class Emitter
     # @yield [SubscriptionScope] a temporary subscription scope layered on top
-    #   of this {SubscriptionSet}
+    #   of this {Emitter}
     def with_subscription_scope(&block)
       SubscriptionScope.open(self, &block)
     end

@@ -9,18 +9,18 @@ require "brainguy/open_listener"
 module Brainguy
   # This object keeps track of all the listeners (observers) subscribed to a
   # particular event source object.
-  class SubscriptionSet < DelegateClass(Set)
+  class Emitter < DelegateClass(Set)
     DEFAULT_NOTIFIER = BasicNotifier.new
 
-    # Create a new {SubscriptionSet} that shares its inner dataset with an
+    # Create a new {Emitter} that shares its inner dataset with an
     # existing one. This exists so that it's possible to generate temporary
-    # copies of a {SubscriptionSet} with different, specialized semantics;
+    # copies of a {Emitter} with different, specialized semantics;
     # for instance, an {IdempotentSubscriptionSet} that shares the same
-    # set of subscriptions as an existing {SubscriptionSet}.
+    # set of subscriptions as an existing {Emitter}.
     # @param event_source [Object] the event-originating object
-    # @param subscription_set [SubscriptionSet] the existing set to share
+    # @param subscription_set [Emitter] the existing set to share
     #   subscriptions with
-    # @return [SubscriptionSet]
+    # @return [Emitter]
     def self.new_from_existing(event_source, subscription_set)
       new(event_source, subscriptions: subscription_set.subscriptions)
     end

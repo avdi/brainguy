@@ -1,17 +1,17 @@
 require "rspec"
-require "brainguy/subscription_set"
+require "brainguy/emitter"
 
 module Brainguy
-  RSpec.describe SubscriptionSet do
+  RSpec.describe Emitter do
     it "uses notifier result for return value of #emit" do
       notifier = instance_double(BasicNotifier, result: "THE RESULT")
-      ss       = SubscriptionSet.new(double("event source"),
+      ss       = Emitter.new(double("event source"),
                                      notifier_maker: ->() { notifier })
       expect(ss.emit(:foo)).to eq("THE RESULT")
     end
 
     it "can set up multiple handlers at once with a hash of lambdas" do
-      ss     = SubscriptionSet.new(double)
+      ss     = Emitter.new(double)
       probe  = spy("probe")
       result = ss.on(foo: proc { probe.handle_foo },
                      bar: proc { probe.handle_bar })

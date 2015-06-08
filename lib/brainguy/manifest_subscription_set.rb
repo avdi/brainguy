@@ -1,4 +1,4 @@
-require "brainguy/subscription_set"
+require "brainguy/emitter"
 require "delegate"
 
 module Brainguy
@@ -6,9 +6,9 @@ module Brainguy
   class UnknownEvent < StandardError
   end
 
-  # A {SubscriptionSet} wrapper which "locks down" a subscription set to a
+  # A {Emitter} wrapper which "locks down" a subscription set to a
   # known list of event names. Useful for preventing typos in event names.
-  class ManifestSubscriptionSet < DelegateClass(SubscriptionSet)
+  class ManifestSubscriptionSet < DelegateClass(Emitter)
 
     # A policy which outputs a warning on unrecognized event names
     WARN_POLICY        = Kernel.method(:warn)
@@ -22,7 +22,7 @@ module Brainguy
     # @return [Array<Symbol>]
     attr_reader :known_types
 
-    # @param subscription_set [SubscriptionSet] the set to be wrapped
+    # @param subscription_set [Emitter] the set to be wrapped
     # @param options [Hash] a hash of options
     # @option options [:call, Symbol] :policy the policy for what to do on
     #   unknown event names. A callable or a mnemonic symbol.
@@ -43,13 +43,13 @@ module Brainguy
                      end
     end
 
-    # (see SubscriptionSet#on)
+    # (see Emitter#on)
     def on(event_name, &block)
       check_event_name(event_name)
       super
     end
 
-    # (see SubscriptionSet#emit)
+    # (see Emitter#emit)
     def emit(event_name, *)
       check_event_name(event_name)
       super

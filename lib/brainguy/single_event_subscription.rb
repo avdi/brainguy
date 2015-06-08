@@ -4,9 +4,9 @@ module Brainguy
   # A subscription to a single type (name) of event. The `listener` will only
   # be notified if the event name matches `subscribed_event_name`.
   #
-  # See {SubscriptionSet#on} for where this class is used.
+  # See {Emitter#on} for where this class is used.
   class SingleEventSubscription < Subscription
-    # @param owner [SubscriptionSet] the owning {SubscriptionSet}
+    # @param owner [Emitter] the owning {Emitter}
     # @param listener [:call] some callable that should be called when the
     #   named event occurs
     # @param subscribed_event_name [Symbol] the event to subscribe to

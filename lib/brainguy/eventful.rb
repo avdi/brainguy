@@ -1,15 +1,15 @@
 require "forwardable"
-require "brainguy/subscription_set"
+require "brainguy/emitter"
 
 module Brainguy
   # A convenience module for making client classes observable.
   module Eventful
     extend Forwardable
 
-    # @return [SubscriptionSet] the {SubscriptionSet} managing all
+    # @return [Emitter] the {Emitter} managing all
     #   subscriptions to this object's events.
     def events
-      @brainguy_subscriptions ||= SubscriptionSet.new(self)
+      @brainguy_subscriptions ||= Emitter.new(self)
     end
 
     # Create a temporary scope for transient subscriptions. Useful for
@@ -22,11 +22,11 @@ module Brainguy
     end
 
     # @!method on(name_or_handlers, &block)
-    # (see {SubscriptionSet#on})
+    # (see {Emitter#on})
     def_delegator :events, :on
 
     # @!method emit
-    # (see {SubscriptionSet#emit})
+    # (see {Emitter#emit})
     def_delegator :events, :emit
     private :emit
   end

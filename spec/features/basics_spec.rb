@@ -6,7 +6,7 @@ module Brainguy
     attr_reader :events
 
     def initialize
-      @events = Brainguy::SubscriptionSet.new(self)
+      @events = Brainguy::Emitter.new(self)
     end
 
     def reject_bid

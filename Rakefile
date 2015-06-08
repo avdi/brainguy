@@ -6,10 +6,10 @@ task :build => :readme
 desc "Build the README"
 task :readme => "README.markdown"
 
-file "README.markdown" => "README.markdown.erb" do
+file "README.markdown" => "README.erb" do
   puts "Generating README.markdown"
   require "erb"
-  template = IO.read("README.markdown.erb")
+  template = IO.read("README.erb")
   IO.write("README.markdown", ERB.new(template).result)
 end
 

@@ -56,7 +56,7 @@ module Brainguy
 
     # Detach a listener. This locates the subscription corresponding to the
     # given listener (if any), and removes it.
-    # @param [:call] a listener to be unsubscribed
+    # @param [:call] listener a listener to be unsubscribed
     # @return [void]
     def detach(listener)
       delete(FullSubscription.new(self, listener))

@@ -165,7 +165,7 @@ You can run the proof-of-concept benchmark for yourself! It's in the `scripts` d
 
 ### Managing subscription lifetime
 
-*You know, it occurs to me that in the `Poem` example, it really doesn't make sense to have an `HtmlFormatter` plugged into a `Poem` forever. Is there a way to attach it before the call to `#recite`, and then detach it immediately after?
+*You know, it occurs to me that in the `Poem` example, it really doesn't make sense to have an `HtmlFormatter` plugged into a `Poem` forever. Is there a way to attach it before the call to `#recite`, and then detach it immediately after?*
 
 Of course. All listener registration methods return a `Subscription` object which can be used to manage the subscription of an observer to emitter. If we wanted to observe the `Poem` for just a single recital, we could do it like this:
 
@@ -191,11 +191,130 @@ In this example, the `HtmlFormatter` is only subscribed to poem events for the d
 
 ### Replacing return values with events
 
-*This is interesting. I can see this being useful for more than just traditionally event-generating objects*
+*Interesting. I can see this being useful for more than just traditionally event-generating objects.*
 
 Indeed it is! This turns out to be a useful pattern for any kind of method which acts as a "command".
 
-TODO...
+For instance, let's imagine a fictional HTTP request method. Different things happen over the course of a request:
+
+- headers come back
+- data comes back (possibly more than once, if it is a streaming-style connection)
+- an error may occur
+- otherwise, at some point it will reach a successful finish
+
+Let's look at how that could be modeled using an "event-ful" method:
+
+```ruby
+connection.request(:get, "/") do |events|
+  events.on(:header){ ... }  # handle a header
+  events.on(:data){ ... }    # handle data
+  events.on(:error){ ... }   # handle errors
+  events.on(:success){ ... } # finish up
+end
+```
+
+This API has some interesting properties:
+
+- Notice how some of the events that are handled will only occur once (`error`, `success`), whereas others (`data`, `header`) may be called multiple times. The event-handler API style means that both singular and repeatable events can be handled in a consistent way.
+- A common headache in designing APIs is deciding how to handle errors. Should an exception be raised? Should there be an exceptional return value? Using events, the client code can set the error policy.
+
+*But couldn't you accomplish the same thing by returning different values for success, failure, etc?*
+
+Not easily. Sure, you could define a method that returned `[:success, 200]` on success, and `[:error, 500]` on failure. But what about the `data` events that may be emitted multiple times as data comes in? Libraries typically handle this limitation by providing separate APIs and/or objects for "streaming" responses. Using events handlers makes it possible to handle both single-return and streaming-style requests in a consistent way.
+
+*I don't like that blocks-in-a-block syntax*
+
+If you're willing to wait until a method call is complete before handling events, there's an alternative to that syntax. Let's say our `#request` method is implemented something like this:
+
+```ruby
+class Connection
+  include Brainguy::Observable
+
+  def request(method, path, &block)
+    with_subscription_scope do
+      # ...
+    end
+  end
+
+  # ...
+end
+```
+
+In that case, instead of sending it with a block, we can do this:
+
+```ruby
+connection.request(:get, "/")
+  .on(:header){ ... }  # handle a header
+  .on(:data){ ... }    # handle data
+  .on(:error){ ... }   # handle errors
+  .on(:success){ ... } # finish up
+```
+
+*How the heck does that work?*
+
+If the method is called without a block, events are queued up in an {Brainguy::IdempotentEmitter}. This is a special kind of emitter that "plays back" any events that an observer missed, as soon as it is attached.
+
+Then it's wrapped in a special {Brainguy::FluentEmitter} before being returned. This enables the "chained" calling style you can see in the example above. Normally, sending `#on` would return a {Brainguy::Subscription} object, so that wouldn't work.
+
+The upshot is that all the events are collected over the course of the method's execution. Then they are played back on each handler as it is added.
+
+*What if I **only** want eventful methods? I don't want my object to carry a long-lived list of observers around?*
+
+Gotcha covered. You can use {Brainguy.with_subscription_scope} to add a temporary subscription scope to any method without first including {Brainguy::Observable}.
+
+```ruby
+class Connection
+  def request(method, path, &block)
+    Brainguy.with_subscription_scope(self) do
+      # ...
+    end
+  end
+
+  # ...
+end
+```
+
+*This is a lot to take in. Anything else you want to tell me about?*
+
+We've covered most of the major features. One thing we haven't talked about is error suppression.
+
+### Suppressing errors
+
+*Why would you want to suppress errors?*
+
+Well, we all know that observers effect the thing being observed. But it can be nice to minimize that effect as much as possible. For instance, if you have a critical process that's being observed, you may want to ensure that spurious errors inside of observers don't cause it to crash.
+
+*Yeah, I could see where that could be a problem.*
+
+So there are some tools for setting a policy in place for what to do with errors in event handlers, including turning them into warnings, suppressing them entirely, or building a list of errors.
+
+I'm not going to go over them in detail here in the README, but you should check out {Brainguy::ErrorHandlingNotifier} and {Brainguy::ErrorCollectingNotifier}, along with their spec files, for more information. They are pretty easy to use.
+
+## FAQ
+
+*Is this library like ActiveRecord callbacks? Or like Rails observers?*
+
+No. ActiveRecord enables callbacks to be enabled at a class level, so that every instance is implicitly being subscribed to. Rails "observers" enable observers to be added with no knowledge whatsoever on the part of the objects being observed.
+
+Brainguy explicitly eschews this kind of "spooky action at a distance". If you want to be notified of what goes on inside an object, you have to subscribe to that object.
+
+*Is this an aspect-oriented programming library? Or a lisp-style "method advice" system?*
+
+No. Aspect-oriented programming and lisp-style method advice are more ways of adding "spooky action at a distance", where the code being advised may have no idea that it is having foreign logic attached to it. As well as no control over *where* that foreign logic is applied.
+
+In Brainguy, by contrast, objects are explicitly subscribed-to, and events are explicitly emitted.
+
+*Is this a library for "Reactive Programming"?*
+
+Not in and of itself. It could potentially serve as the foundation for such a library though.
+
+*Is this a library for creating "hooks"?*
+
+Sort of. Observers do let you "hook" arbitrary handlers to events in other objects. However, this library is not aimed at enabling you to create hooks that *modify* the behavior of other methods. It's primarily intended to allow objects to be *notified* of significant events, without interfering in the processing of the object sending out the notifications.
+
+*Is this an asynchronous messaging or reactor system?*
+
+No. Brainguy events are processed synchronously have no awareness of concurrency.
 
 ## Installation
 
@@ -219,7 +338,7 @@ Coming soon!
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/brainguy/fork )
+1. Fork it ( https://github.com/avdi/brainguy/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

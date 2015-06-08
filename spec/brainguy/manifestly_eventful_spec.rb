@@ -7,12 +7,12 @@ module Brainguy
     include_examples "an eventful module",
                      ManifestlyEventful.new(:heat, :drip, :done)
 
-    it "adds a ManifestSubscriptionSet to the class" do
+    it "adds a ManifestEmitter to the class" do
       klass = Class.new do
         include ManifestlyEventful.new(:red, :green)
       end
       obj   = klass.new
-      expect(obj.events).to be_a(ManifestSubscriptionSet)
+      expect(obj.events).to be_a(ManifestEmitter)
     end
 
     it "adds the specified event names to the known list" do

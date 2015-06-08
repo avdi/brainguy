@@ -1,5 +1,5 @@
 require "brainguy/eventful"
-require "brainguy/manifest_subscription_set"
+require "brainguy/manifest_emitter"
 
 module Brainguy
   # A custom {Module} subclass which acts like {Eventful}, except with an
@@ -31,13 +31,13 @@ module Brainguy
 
           # If there is already another ManifestlyEventful included further
           # up the chain...
-          if subscription_set.is_a?(ManifestSubscriptionSet)
+          if subscription_set.is_a?(ManifestEmitter)
             # just add our event types to its subscription set
             subscription_set.known_types.concat(known_events)
             # But if this is the first ManifestlyEventful included...
           else
-            # Wrap the subscription set in a ManifestSubscriptionSet
-            @brainguy_events = ManifestSubscriptionSet.new(subscription_set)
+            # Wrap the subscription set in a ManifestEmitter
+            @brainguy_events = ManifestEmitter.new(subscription_set)
             # Set up the known event types
             @brainguy_events.known_types.concat(known_events)
           end

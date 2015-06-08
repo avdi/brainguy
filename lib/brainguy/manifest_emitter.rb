@@ -8,7 +8,7 @@ module Brainguy
 
   # A {Emitter} wrapper which "locks down" a subscription set to a
   # known list of event names. Useful for preventing typos in event names.
-  class ManifestSubscriptionSet < DelegateClass(Emitter)
+  class ManifestEmitter < DelegateClass(Emitter)
 
     # A policy which outputs a warning on unrecognized event names
     WARN_POLICY        = Kernel.method(:warn)

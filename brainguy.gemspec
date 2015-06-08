@@ -8,9 +8,10 @@ Gem::Specification.new do |spec|
   spec.version       = Brainguy::VERSION
   spec.authors       = ["Avdi Grimm"]
   spec.email         = ["avdi@avdi.org"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{An Observer pattern library}
+  spec.description   = %q{A somewhat fancy observer pattern library with
+features like named events and scoped subscriptions.}
+  spec.homepage      = "https://github.com/avdi/brainguy"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

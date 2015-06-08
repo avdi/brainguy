@@ -7,7 +7,7 @@ module Brainguy
   #
   # This class is probably best used in short-lived scopes, since the log of
   # events will continually grow.
-  class IdempotentSubscriptionSet < Emitter
+  class IdempotentEmitter < Emitter
     # (see Emitter#initialize)
     def initialize(*)
       super

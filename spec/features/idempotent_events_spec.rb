@@ -6,7 +6,7 @@ module Brainguy
     attr_reader :events
 
     def initialize
-      @events = Brainguy::IdempotentSubscriptionSet.new(self)
+      @events = Brainguy::IdempotentEmitter.new(self)
     end
 
     def successful_response

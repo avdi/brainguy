@@ -15,7 +15,7 @@ module Brainguy
     # Create a new {Emitter} that shares its inner dataset with an
     # existing one. This exists so that it's possible to generate temporary
     # copies of a {Emitter} with different, specialized semantics;
-    # for instance, an {IdempotentSubscriptionSet} that shares the same
+    # for instance, an {IdempotentEmitter} that shares the same
     # set of subscriptions as an existing {Emitter}.
     # @param event_source [Object] the event-originating object
     # @param subscription_set [Emitter] the existing set to share

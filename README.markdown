@@ -95,6 +95,8 @@ number of conveniences that you otherwise might have to build yourself on top of
 
 Well, the most important feature it has is *named event types*. Instead of a single "update" event, events have symbolic names. Observers can choose which events they care about, and ignore the rest.
 
+=== Defining some terms
+
 *What exactly is a "observer"? Is it a special kind of object?*
 
 Not really, no. Fundamentally a observer is any object which responds to `#call`. The most obvious example of such an object is a `Proc`. Here's an example of using a proc as a simple observer:
@@ -137,6 +139,8 @@ events.emit(:movie_sign, movie_title: "Giant Spider Invasion"
 ```
 
 For convenience, the event name, source, and arguments are all bundled into an `Event` object before being disseminated to observers.
+
+=== Making an object observable
 
 *OK, say I have an object that I want to make observable. How would I go about that?*
 
@@ -198,15 +202,18 @@ toaster.make_toast
 
 *I see that instead of `events.emit(...)`, now the class just uses `emit(...)`. And the same with `#on`.*
 
-Very observant! `Observable` adds three methods to classes which mix it in:
+Very observant! `Observable` adds four methods to classes which mix it in:
 
 - `#on`, to quickly attach single-event handlers on the object.
 - `#emit`, a private method for conveniently emitting events inside the class.
 - `#events`, to access the `Emitter` object.
+- `#with_subscription_scope`, which we'll talk about later.
 
 *That's not a lot of methods added.*
 
 Nope! That's intentional. These are your classes, and I don't want to clutter up your API unnecessarily. `#on` and `#emit` are provided as conveniences for common actions. Anything else you need, you can get to via the `Emitter` returned from `#events`.
+
+=== Constraining event types
 
 *I see that un-handled events are just ignored. Doesn't that make it easy to miss events because of a typo in the name?*
 
@@ -239,6 +246,8 @@ toaster.make_toast
 # ~> xmptmp-in27856uxq.rb:14:in `<main>'
 
 ```
+
+=== All about observers
 
 *I'm still a little confused about `#on`. Is that just another way to add an observer?*
 
@@ -341,13 +350,86 @@ f.result
 
 ```
 
-*So including `Observer` automatically handles the dispatching of events from `#call` to the various `#on_*` methods?*
+*So including `Observer` automatically handles the dispatching of events from `#call` to the various `#on_` methods?*
 
 Yes, exactly. And through some metaprogramming, it is able to do this in a way that is just as performant as a hand-written case statement.
 
 *How do you know it's that fast?*
 
 You can run the proof-of-concept benchmark for yourself! It's in the `scripts` directory.
+
+=== Managing subscription lifetime
+
+*You know, it occurs to me that in the `Poem` example, it really doesn't make sense to have an `HtmlFormatter` plugged into a `Poem` forever. Is there a way to attach it before the call to `#recite`, and then detach it immediately after?
+
+Of course. All listener registration methods return a `Subscription` object which can be used to manage the subscription of an observer to emitter. If we wanted to observe the `Poem` for just a single recital, we could do it like this:
+
+```ruby
+p = Poem.new
+f = HtmlFormatter.new
+subscription = p.events.attach(f)
+p.recite
+subscription.cancel
+```
+
+*OK, so I just need to remember to `#cancel` the subscriptions that I don't want sticking around.*
+
+That's one way to do it. But this turns out to be a common use case. It's often desirable to have observers that are in effect just for the length of a single method call.
+
+Here's how we might re-write the "poem" example with event subscriptions scoped to just the `#recite` call:
+
+```ruby
+require "brainguy"
+
+class Poem
+  include Brainguy::Observable
+  def recite(&block)
+    with_subscription_scope(block) do
+      emit(:title, "Jabberwocky")
+      emit(:line, "'twas brillig, and the slithy toves")
+      emit(:line, "Did gyre and gimbal in the wabe")
+    end
+  end
+end
+
+class HtmlFormatter
+  include Brainguy::Observer
+
+  attr_reader :result
+  
+  def initialize
+    @result = ""
+  end
+  
+  def on_title(event)
+    @result << "<h1>#{event.args.first}</h1>"
+  end
+
+  def on_line(event)
+    @result << "#{event.args.first}</br>"
+  end
+end
+
+p = Poem.new
+f = HtmlFormatter.new
+p.recite do |events|
+  events.attach(f)
+end
+
+f.result
+# => "<h1>Jabberwocky</h1>'twas brillig, and the slithy toves</br>Did gyre an...
+
+```
+
+In this example, the `HtmlFormatter` is only subscribed to poem events for the duration of the call to `#recite`. After that it is automatically detached.
+
+=== Replacing return values with events
+
+*This is interesting. I can see this being useful for more than just traditionally event-generating objects*
+
+Indeed it is! This turns out to be a useful pattern for any kind of method which acts as a "command".
+
+TODO...
 
 ## Installation
 

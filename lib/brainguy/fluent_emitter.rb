@@ -12,7 +12,7 @@ module Brainguy
   #   end.on(:mew) do
   #     # handle mew...
   #   end
-  class FluentSubscriptionSet < DelegateClass(Emitter)
+  class FluentEmitter < DelegateClass(Emitter)
     # (see Emitter#on)
     # @return `self`
     def on(*)

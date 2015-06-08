@@ -4,7 +4,7 @@ require "brainguy/emitter"
 require "brainguy/idempotent_subscription_set"
 require "brainguy/eventful"
 require "brainguy/subscription_scope"
-require "brainguy/fluent_subscription_set"
+require "brainguy/fluent_emitter"
 require "brainguy/listener"
 
 # Namespace for the `brainguy` gem. See {file:README.md} for usage instructions.
@@ -26,7 +26,7 @@ module Brainguy
       yield scope
     end
     unless listener_block
-      FluentSubscriptionSet.new(subscription_set)
+      FluentEmitter.new(subscription_set)
     end
   end
 end

@@ -1,12 +1,3 @@
-# Brainguy
-
-![Observer, AKA "Brain Guy"](http://static.tvtropes.org/pmwiki/pub/images/MST3K_Brain_Guy_7093.jpg)
-
-Brainguy is an Observer library for Ruby.
-
-## Synopsis
-
-```ruby
 require "brainguy"
 
 class SatelliteOfLove
@@ -63,33 +54,3 @@ sol.send_the_movie
 # >> Crow: I'm different!
 # >> [Movie sign flashes]
 # >> Mike: Oh no we've got movie sign!
-
-```
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'brainguy'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install brainguy
-
-## Usage
-
-Coming soon!
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/brainguy/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request

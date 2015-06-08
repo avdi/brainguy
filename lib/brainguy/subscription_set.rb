@@ -1,4 +1,5 @@
 require "delegate"
+require "set"
 require "brainguy/full_subscription"
 require "brainguy/single_event_subscription"
 require "brainguy/event"
@@ -28,7 +29,7 @@ module Brainguy
     # @option options [Set<Subscription>] :subscriptions (Set.new) the
     #   underlying set of subscriptions
     # @option options [:call] :notifier_maker a factory for notifiers.
-    def initialize(event_source, options = {})
+    def initialize(event_source = self, options = {})
       super(options[:subscriptions] || Set.new)
       @event_source   = event_source
       @notifier_maker = options.fetch(:notifier_maker) {

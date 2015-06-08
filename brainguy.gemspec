@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.2"
   spec.add_development_dependency "benchmark-ips"
   spec.add_development_dependency "yard", "~> 0.8.7"
+  spec.add_development_dependency "seeing_is_believing", "~> 2.2"
 end

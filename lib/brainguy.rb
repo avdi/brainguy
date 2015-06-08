@@ -5,6 +5,7 @@ require "brainguy/idempotent_subscription_set"
 require "brainguy/eventful"
 require "brainguy/subscription_scope"
 require "brainguy/fluent_subscription_set"
+require "brainguy/listener"
 
 # Namespace for the `brainguy` gem. See {file:README.md} for usage instructions.
 module Brainguy

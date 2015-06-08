@@ -15,7 +15,7 @@ module Brainguy
       probe  = spy("probe")
       result = ss.on(foo: proc { probe.handle_foo },
                      bar: proc { probe.handle_bar })
-      expect(result.listener).to be_a(OpenListener)
+      expect(result.listener).to be_a(OpenObserver)
       ss.emit(:foo)
       ss.emit(:bar)
       expect(probe).to have_received(:handle_foo)

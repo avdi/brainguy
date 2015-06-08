@@ -1,12 +1,12 @@
 module Brainguy
   # A quick and dirty way to set up a reusable listener object. Like an
   # OpenObject, only for event listening!
-  class OpenListener
+  class OpenObserver
     # @param handlers [Hash{Symbol => [:call]}] a Hash of event names to
     #   callable handlers
     # @yield [self] if a block is given
     # @example Initializing and then adding handlers dynamically
-    #   ol = OpenListener.new
+    #   ol = OpenObserver.new
     #   ol.on_foo do
     #     # ...
     #   end
@@ -14,7 +14,7 @@ module Brainguy
     #     # ...
     #   end
     # @example Initializing with a block
-    #   listener = OpenListener.new do |ol|
+    #   listener = OpenObserver.new do |ol|
     #     ol.on_foo do
     #       # ...
     #     end
@@ -23,7 +23,7 @@ module Brainguy
     #     end
     #  end
     # @example Initializing from a hash
-    #   listener = OpenListener.new(foo: ->{...}, bar: ->{...})
+    #   listener = OpenObserver.new(foo: ->{...}, bar: ->{...})
     def initialize(handlers = {})
       @handlers = handlers
       yield self if block_given?
@@ -40,7 +40,7 @@ module Brainguy
 
     # Enable setting up event handlers dynamically using `on_*` message sends.
     # @example
-    #   ol = OpenListener.new
+    #   ol = OpenObserver.new
     #   ol.on_foo do
     #     # ...
     #   end

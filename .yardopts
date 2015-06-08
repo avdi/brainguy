@@ -1,3 +1,4 @@
+--exclude README\\.markdown\\.erb
 --markup markdown
 -
-README.md
+README.markdown

@@ -4,7 +4,7 @@ require "brainguy/full_subscription"
 require "brainguy/single_event_subscription"
 require "brainguy/event"
 require "brainguy/basic_notifier"
-require "brainguy/open_listener"
+require "brainguy/open_observer"
 
 module Brainguy
   # This object keeps track of all the listeners (observers) subscribed to a
@@ -78,7 +78,7 @@ module Brainguy
       when Symbol
         attach_to_single_event(name_or_handlers, block)
       when Hash
-        attach(OpenListener.new(name_or_handlers))
+        attach(OpenObserver.new(name_or_handlers))
       else
         fail ArgumentError, "Event name or Hash required"
       end

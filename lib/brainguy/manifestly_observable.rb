@@ -1,18 +1,18 @@
-require "brainguy/eventful"
+require "brainguy/observable"
 require "brainguy/manifest_emitter"
 
 module Brainguy
-  # A custom {Module} subclass which acts like {Eventful}, except with an
+  # A custom {Module} subclass which acts like {Observable}, except with an
   # event type manifest. This is a way to define an observable cladd with a
   # known list of possible event types.
   #
   # @example
   #   class MyApiRequest
-  #     include ManifestlyEventful.new(:success, :unauthorized, :error)
+  #     include ManifestlyObservable.new(:success, :unauthorized, :error)
   #     # ...
   #   end
   #
-  class ManifestlyEventful < Module
+  class ManifestlyObservable < Module
 
     # Generate a new mixin module with a custom list of known event types.
     def initialize(*known_events)
@@ -20,8 +20,8 @@ module Brainguy
       @known_events = known_events
       # Define the module body
       super() do
-        # First off, let's make sure we have basic Eventful functionality
-        include Eventful
+        # First off, let's make sure we have basic Observable functionality
+        include Observable
 
         # Now, we override #events to wrap it in some extra goodness
         define_method :events do
@@ -29,12 +29,12 @@ module Brainguy
           # Let's see what the current subscription set object is
           subscription_set = super()
 
-          # If there is already another ManifestlyEventful included further
+          # If there is already another ManifestlyObservable included further
           # up the chain...
           if subscription_set.is_a?(ManifestEmitter)
             # just add our event types to its subscription set
             subscription_set.known_types.concat(known_events)
-            # But if this is the first ManifestlyEventful included...
+            # But if this is the first ManifestlyObservable included...
           else
             # Wrap the subscription set in a ManifestEmitter
             @brainguy_events = ManifestEmitter.new(subscription_set)
@@ -56,7 +56,7 @@ module Brainguy
     # Return a meaningful description of the generated module.
     # @return [String]
     def to_s
-      "ManifestlyEventful(#{@known_events.map(&:inspect).join(', ')})"
+      "ManifestlyObservable(#{@known_events.map(&:inspect).join(', ')})"
     end
   end
 end

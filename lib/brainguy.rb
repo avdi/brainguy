@@ -2,10 +2,12 @@ require "brainguy/version"
 require "brainguy/event"
 require "brainguy/emitter"
 require "brainguy/idempotent_emitter"
-require "brainguy/eventful"
+require "brainguy/observable"
+require "brainguy/manifestly_observable"
+
 require "brainguy/subscription_scope"
 require "brainguy/fluent_emitter"
-require "brainguy/listener"
+require "brainguy/observer"
 
 # Namespace for the `brainguy` gem. See {file:README.md} for usage instructions.
 module Brainguy

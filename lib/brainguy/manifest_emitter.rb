@@ -33,35 +33,45 @@ module Brainguy
     def initialize(subscription_set, options = {})
       super(subscription_set)
       @known_types = []
-      @policy      = case policy = options.fetch(:policy) { :warn }
-                     when :warn
-                       WARN_POLICY
-                     when :raise_error
-                       RAISE_ERROR_POLICY
-                     else
-                       fail ArgumentError, "Invalid policy: #{policy}"
-                     end
+      policy = options.fetch(:policy) { :warn }
+      @policy      = resolve_policy(policy)
+    end
+
+
+    def unknown_event_policy=(new_policy)
+      @policy = resolve_policy(new_policy)
     end
 
     # (see Emitter#on)
     def on(event_name, &block)
-      check_event_name(event_name)
+      check_event_name(event_name, __callee__)
       super
     end
 
     # (see Emitter#emit)
     def emit(event_name, *)
-      check_event_name(event_name)
+      check_event_name(event_name, __callee__)
       super
     end
 
     private
 
-    def check_event_name(event_name)
+    def check_event_name(event_name, method_name)
       unless @known_types.include?(event_name)
         message =
-            "##{__callee__} received for unknown event type '#{event_name}'"
+            "##{method_name} received for unknown event type '#{event_name}'"
         @policy.call(message)
+      end
+    end
+
+    def resolve_policy(policy)
+      case policy
+      when :warn
+        WARN_POLICY
+      when :raise_error
+        RAISE_ERROR_POLICY
+      else
+        fail ArgumentError, "Invalid policy: #{policy}"
       end
     end
   end

@@ -6,7 +6,7 @@ module Brainguy
   # class will be dispatched to `#on_<EVENT_NAME>` methods, if they exist. If
   # no event-specific handler method is found, it will be sent to
   # {#event_handler_missing}.
-  module Listener
+  module Observer
     module ClassMethods
       HANDLER_METHOD_PATTERN = /\Aon_(.+)\z/
 

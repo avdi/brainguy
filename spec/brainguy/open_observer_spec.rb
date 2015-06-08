@@ -1,11 +1,11 @@
 require "rspec"
-require "brainguy/open_listener"
+require "brainguy/open_observer"
 
 module Brainguy
-  RSpec.describe OpenListener do
+  RSpec.describe OpenObserver do
     it "can be constructed from a hash" do
       probe  = spy("probe")
-      ol     = OpenListener.new(foo: ->(e) { probe.handle_foo(e) },
+      ol     = OpenObserver.new(foo: ->(e) { probe.handle_foo(e) },
                                 bar: ->(e) { probe.handle_bar(e) })
       source = double("source")
       ol.call(e1 = Event[:foo])
@@ -16,7 +16,7 @@ module Brainguy
 
     it "can be constructed using on_* methods" do
       probe = spy("probe")
-      ol    = OpenListener.new
+      ol    = OpenObserver.new
       ol.on_foo do |e|
         probe.handle_foo(e)
       end
@@ -32,7 +32,7 @@ module Brainguy
 
     it "yields self on init" do
       probe  = spy("probe")
-      ol     = OpenListener.new do |l|
+      ol     = OpenObserver.new do |l|
         l.on_foo do |e|
           probe.handle_foo(e)
         end
@@ -48,7 +48,7 @@ module Brainguy
     end
 
     it "has correct #respond_to? behavior" do
-      ol = OpenListener.new
+      ol = OpenObserver.new
       expect(ol).to respond_to(:on_blub)
       expect(ol).to_not respond_to(:blub)
     end

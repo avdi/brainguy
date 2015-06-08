@@ -1,7 +1,7 @@
 require "brainguy"
 
 class SatelliteOfLove
-  include Brainguy::Eventful
+  include Brainguy::Observable
 
   def intro_song
     emit(:robot_roll_call)
@@ -13,7 +13,7 @@ class SatelliteOfLove
 end
 
 class Crew
-  include Brainguy::Listener
+  include Brainguy::Observer
 end
 
 class TomServo < Crew

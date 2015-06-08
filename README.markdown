@@ -7,7 +7,63 @@ Brainguy is an Observer library for Ruby.
 ## Synopsis
 
 ```ruby
-<%= File.read("examples/synopsis.rb") %>
+require "brainguy"
+
+class SatelliteOfLove
+  include Brainguy::Observable
+
+  def intro_song
+    emit(:robot_roll_call)
+  end
+
+  def send_the_movie
+    emit(:movie_sign)
+  end
+end
+
+class Crew
+  include Brainguy::Observer
+end
+
+class TomServo < Crew
+  def on_robot_roll_call(event)
+    puts "Tom: Check me out!"
+  end
+end
+
+class CrowTRobot < Crew
+  def on_robot_roll_call(event)
+    puts "Crow: I'm different!"
+  end
+end
+
+class MikeNelson < Crew
+  def on_movie_sign(event)
+    puts "Mike: Oh no we've got movie sign!"
+  end
+end
+
+sol = SatelliteOfLove.new
+# Attach specific event handlers without a listener object
+sol.on(:robot_roll_call) do
+  puts "[Robot roll call!]"
+end
+sol.on(:movie_sign) do
+  puts "[Movie sign flashes]"
+end
+sol.events.attach TomServo.new
+sol.events.attach CrowTRobot.new
+sol.events.attach MikeNelson.new
+
+sol.intro_song
+sol.send_the_movie
+
+# >> [Robot roll call!]
+# >> Tom: Check me out!
+# >> Crow: I'm different!
+# >> [Movie sign flashes]
+# >> Mike: Oh no we've got movie sign!
+
 ```
 
 ## Introduction
@@ -44,7 +100,17 @@ Well, the most important feature it has is *named event types*. Instead of a sin
 Not really, no. Fundamentally a observer is any object which responds to `#call`. The most obvious example of such an object is a `Proc`. Here's an example of using a proc as a simple observer:
 
 ```ruby
-<%= File.read("examples/proc_observer.rb") %>
+require "brainguy"
+
+events = Brainguy::Emitter.new
+observer = proc do |event|
+  puts "Got event: #{event.name}"
+end
+events.attach(observer)
+events.emit(:ding)
+
+# >> Got event: ding
+
 ```
 
 Every time the emitter emits an event, the observer proc will receive `#call` with an `Event` object as an argument.
@@ -77,7 +143,29 @@ For convenience, the event name, source, and arguments are all bundled into an `
 Well, the no-magic way might go something like this:
 
 ```ruby
-<%= File.read("examples/manual_observable.rb") %>
+require "brainguy"
+
+class Toaster
+  attr_reader :events
+
+  def initialize
+    @events = Brainguy::Emitter.new(self)
+  end
+
+  def make_toast
+    events.emit(:start)
+    events.emit(:pop)
+  end
+end
+
+toaster = Toaster.new
+toaster.events.on(:pop) do
+  puts "Toanst is done!"
+end
+toaster.make_toast
+
+# >> Toast is done!
+
 ```
 
 Notice that we pass `self` to the new `Emitter`, so that it will know what object to set as the event source for emitted events.
@@ -87,7 +175,25 @@ Notice that we pass `self` to the new `Emitter`, so that it will know what objec
 Of course! But it's not much more magic. There's an `Observable` module that just packages up the convention we used above into a reusable mixin you can use in any of your classes. Here's what that code would look like using the mixin:
 
 ```ruby
-<%= File.read("examples/include_observable.rb") %>
+require "brainguy"
+
+class Toaster
+  include Brainguy::Observable
+
+  def make_toast
+    emit(:start)
+    emit(:pop)
+  end
+end
+
+toaster = Toaster.new
+toaster.on(:pop) do
+  puts "Toast is done!"
+end
+toaster.make_toast
+
+# >> Toast is done!
+
 ```
 
 *I see that instead of `events.emit(...)`, now the class just uses `emit(...)`. And the same with `#on`.*
@@ -109,7 +215,29 @@ Yeah, it kinda does. In order to help with that, there's an alternative kind of 
 Well, that's what it does by default. We can also customize the policy for how to handle unknown events, as this example demonstrates:
 
 ```ruby
-<%= File.read("examples/include_manifestly_observable.rb") %>
+require "brainguy"
+
+class Toaster
+  include Brainguy::ManifestlyObservable.new(:start, :pop)
+
+  def make_toast
+    emit(:start)
+    emit(:lop)
+  end
+end
+
+toaster = Toaster.new
+toaster.events.unknown_event_policy = :raise_error
+toaster.on(:plop) do
+  puts "Toast is done!"
+end
+toaster.make_toast
+
+# ~> Brainguy::UnknownEvent
+# ~> #on received for unknown event type 'plop'
+# ~>
+# ~> xmptmp-in27856uxq.rb:14:in `<main>'
+
 ```
 
 *I'm still a little confused about `#on`. Is that just another way to add an observer?*
@@ -133,7 +261,38 @@ You could if you wanted to. But that's a common desire, so there are some conven
 Well, first off, there's `OpenObserver`. It's kinda like Ruby's `OpenObject`, but for observer objects. You can use it to quickly put together a reusable observer object. For instance, here's an example where we have two different observable objects, observed by a single `OpenObserver`.
 
 ```ruby
-<%= File.read("examples/open_observer.rb") %>
+require "brainguy"
+
+class VideoRender
+  include Brainguy::Observable
+  attr_reader :name
+  def initialize(name)
+    @name = name
+  end
+  
+  def do_render
+    emit(:complete)
+  end
+end
+
+v1 = VideoRender.new("foo.mp4")
+v2 = VideoRender.new("bar.mp4")
+
+observer = Brainguy::OpenObserver.new do |o|
+  o.on_complete do |event|
+    puts "Video #{event.source.name} is done rendering!"
+  end
+end
+
+v1.events.attach(observer)
+v2.events.attach(observer)
+
+v1.do_render
+v2.do_render
+
+# >> Video foo.mp4 is done rendering!
+# >> Video bar.mp4 is done rendering!
+
 ```
 
 There are a few other ways to instantiate an `OpenObserver`; check out the source code and tests for more information.
@@ -143,7 +302,43 @@ There are a few other ways to instantiate an `OpenObserver`; check out the sourc
 There's a helper for that as well. Here's an example where we have a `Poem` class that can recite a poem, generating events along the way. And then we have an `HtmlFormatter` which observes those events and incrementally constructs some HTML text as it does so.
 
 ```ruby
-<%= File.read("examples/include_observer.rb") %>
+require "brainguy"
+
+class Poem
+  include Brainguy::Observable
+  def recite
+    emit(:title, "Jabberwocky")
+    emit(:line, "'twas brillig, and the slithy toves")
+    emit(:line, "Did gyre and gimbal in the wabe")
+  end
+end
+
+class HtmlFormatter
+  include Brainguy::Observer
+
+  attr_reader :result
+  
+  def initialize
+    @result = ""
+  end
+  
+  def on_title(event)
+    @result << "<h1>#{event.args.first}</h1>"
+  end
+
+  def on_line(event)
+    @result << "#{event.args.first}</br>"
+  end
+end
+
+p = Poem.new
+f = HtmlFormatter.new
+p.events.attach(f)
+p.recite
+
+f.result
+# => "<h1>Jabberwocky</h1>'twas brillig, and the slithy toves</br>Did gyre an...
+
 ```
 
 *So including `Observer` automatically handles the dispatching of events from `#call` to the various `#on_*` methods?*

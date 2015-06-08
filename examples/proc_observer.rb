@@ -1,10 +1,10 @@
 require "brainguy"
 
 events = Brainguy::Emitter.new
-listener = proc do |event|
+observer = proc do |event|
   puts "Got event: #{event.name}"
 end
-events.attach(listener)
+events.attach(observer)
 events.emit(:ding)
 
 # >> Got event: ding

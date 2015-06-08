@@ -58,7 +58,7 @@ describe "method-scoped subscription set" do
   end
 
   class Dog
-    include Brainguy::Eventful
+    include Brainguy::Observable
 
     def play_fetch
       emit(:chase_stick)
@@ -73,7 +73,7 @@ describe "method-scoped subscription set" do
     end
   end
 
-  it "can be used in conjunction with an Eventful object" do
+  it "can be used in conjunction with an Observable object" do
     dog = Dog.new
     lifetime_listener = spy("lifetime listener")
     scoped_listener   = spy("scoped listener")

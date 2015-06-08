@@ -1,13 +1,13 @@
 require "rspec"
-require "brainguy/listener"
+require "brainguy/observer"
 
 module Brainguy
-  RSpec.describe Listener do
+  RSpec.describe Observer do
     class AccountListener
       def on_open(event)
       end
 
-      include Listener
+      include Observer
 
       def on_deposit(event)
       end
@@ -34,7 +34,7 @@ module Brainguy
 
         end
 
-        include Listener
+        include Observer
       end
       listener = klass.new
       allow(listener).to receive(:on_open)
@@ -50,7 +50,7 @@ module Brainguy
     it "doesn't blow up on a handler-less class" do
       expect do
         Class.new do
-          include Listener
+          include Observer
         end
       end.to_not raise_error
     end
@@ -58,7 +58,7 @@ module Brainguy
     it "passes unknown events to a catch-all method" do
       events = []
       klass = Class.new do
-        include Listener
+        include Observer
         define_method :event_handler_missing do |event|
           events << event
         end

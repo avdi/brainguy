@@ -3,7 +3,7 @@ require "brainguy/emitter"
 
 module Brainguy
   # A convenience module for making client classes observable.
-  module Eventful
+  module Observable
     extend Forwardable
 
     # @return [Emitter] the {Emitter} managing all

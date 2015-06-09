@@ -15,7 +15,7 @@ end
 
 toaster = Toaster.new
 toaster.events.on(:pop) do
-  puts "Toanst is done!"
+  puts "Toast is done!"
 end
 toaster.make_toast
 

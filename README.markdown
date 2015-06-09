@@ -97,7 +97,7 @@ Well, the most important feature it has is *named event types*. Instead of a sin
 
 ### Defining some terms
 
-*What exactly is a "observer"? Is it a special kind of object?*
+*What exactly is an "observer"? Is it a special kind of object?*
 
 Not really, no. Fundamentally a observer is any object which responds to `#call`. The most obvious example of such an object is a `Proc`. Here's an example of using a proc as a simple observer:
 
@@ -164,7 +164,7 @@ end
 
 toaster = Toaster.new
 toaster.events.on(:pop) do
-  puts "Toanst is done!"
+  puts "Toast is done!"
 end
 toaster.make_toast
 
@@ -486,7 +486,7 @@ connection.request(:get, "/")
 
 *How the heck does that work?*
 
-If the method is called without a block, events are queued up in an {Brainguy::IdempotentEmitter}. This is a special kind of emitter that "plays back" any events that an observer missed, as soon as it is attached.
+If the method is called without a block, events are queued up in a {Brainguy::IdempotentEmitter}. This is a special kind of emitter that "plays back" any events that an observer missed, as soon as it is attached.
 
 Then it's wrapped in a special {Brainguy::FluentEmitter} before being returned. This enables the "chained" calling style you can see in the example above. Normally, sending `#on` would return a {Brainguy::Subscription} object, so that wouldn't work.
 
@@ -516,7 +516,7 @@ We've covered most of the major features. One thing we haven't talked about is e
 
 *Why would you want to suppress errors?*
 
-Well, we all know that observers effect the thing being observed. But it can be nice to minimize that effect as much as possible. For instance, if you have a critical process that's being observed, you may want to ensure that spurious errors inside of observers don't cause it to crash.
+Well, we all know that observers affect the thing being observed. But it can be nice to minimize that effect as much as possible. For instance, if you have a critical process that's being observed, you may want to ensure that spurious errors inside of observers don't cause it to crash.
 
 *Yeah, I could see where that could be a problem.*
 

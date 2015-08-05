@@ -550,6 +550,10 @@ Sort of. Observers do let you "hook" arbitrary handlers to events in other objec
 
 No. Brainguy events are processed synchronously have no awareness of concurrency.
 
+*Is there somewhere I can learn more about using observers to keep responsibilities separate?*
+
+Yes. The book [*Growing Object-Oriented Software, Guided by Tests*](http://www.growing-object-oriented-software.com/) was a big inspiration for this library.
+
 ## Installation
 
 Add this line to your application's Gemfile:

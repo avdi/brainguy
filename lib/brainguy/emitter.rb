@@ -62,27 +62,62 @@ module Brainguy
       delete(FullSubscription.new(self, listener))
     end
 
-    # Attach blocks of code to handle specific named events.
+    # Attach a block of code or a callback to handle named events.
     # @overload on(name, &block)
     #   Attach a block to be called for a specific event. The block will be
     #   called with the event arguments (not the event object).
     #   @param name [Symbol]
     #   @param block [Proc] what to do when the event is emitted
+    #   @example
+    #     traffic_light.on :green do
+    #       my_car.go!
+    #     end
+    # @overload on(name, callback_info={})
+    #   Request that a selector be sent as a message to an object,
+    #   optionally with arguments, when `name` occurs.
+    #   @param name [Symbol] the name of the event
+    #   @option callback_info [Symbol] :send the name of the message
+    #   @option callback_info [Object] :to the object it should be
+    #     sent to
+    #   @option callback_info [Array]  :with optional arguments to pass
+    #   @example
+    #     traffic_light.on(:green, send: :go, to: my_car, with: [{speed: 20}])
+    # @overload on(name, callback_info={})
+    #   Request that a message, including arguments, be sent to an object
+    #   @param name [Symbol] the name of the event
+    #   @option callback_info [Array] :send an array of `[:selector, args...]`
+    #   @option callback_info [Object] :to the object it should be
+    #     sent to
+    #   @example
+    #     traffic_light.on(:green, send: [:go, "fast!"], to: my_car)
     # @overload on(handlers)
     #   Attach multiple event-specific handlers at once.
     #   @param handlers [Hash{Symbol => [:call]}] a map of event names to
     #     callable handlers.
+    #   @example
+    #     traffic_light.on green: ->{ my_car.go! },
+    #                      red:   ->{ my_car.stop! }
     # @return (see #attach)
-    def on(name_or_handlers, &block)
+    def on(name_or_handlers, callback_info={}, &block)
       case name_or_handlers
       when Symbol
-        attach_to_single_event(name_or_handlers, block)
+        if (selector = callback_info[:send])
+          receiver = callback_info.fetch(:to) do
+            fail ArgumentError, "Must specify a receiver object with :to"
+          end
+          args     = Array(callback_info[:with])
+          message  = Array(selector).concat(args)
+          attach_callback(name_or_handlers, receiver, message)
+        else
+          attach_to_single_event(name_or_handlers, block)
+        end
       when Hash
         attach(OpenObserver.new(name_or_handlers))
       else
         fail ArgumentError, "Event name or Hash required"
       end
     end
+
 
     # Emit an event to be distributed to all interested listeners.
     # @param event_name [Symbol] the name of the event
@@ -99,6 +134,13 @@ module Brainguy
     end
 
     private
+
+    def attach_callback(name, receiver, message)
+      callback = proc do
+        receiver.public_send(*message)
+      end
+      attach_to_single_event(name, callback)
+    end
 
     def attach_to_single_event(event_name, block)
       SingleEventSubscription.new(self, block, event_name).tap do

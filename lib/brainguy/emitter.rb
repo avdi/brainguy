@@ -101,22 +101,14 @@ module Brainguy
     def on(name_or_handlers, callback_info={}, &block)
       case name_or_handlers
       when Symbol
-        if (selector = callback_info[:send])
-          receiver = callback_info.fetch(:to) do
-            fail ArgumentError, "Must specify a receiver object with :to"
-          end
-          args     = Array(callback_info[:with])
-          message  = Array(selector).concat(args)
-          attach_callback(name_or_handlers, receiver, message)
-        else
-          attach_to_single_event(name_or_handlers, block)
-        end
+        attach_to_single_event(name_or_handlers, callback_info, block)
       when Hash
         attach(OpenObserver.new(name_or_handlers))
       else
         fail ArgumentError, "Event name or Hash required"
       end
     end
+
 
 
     # Emit an event to be distributed to all interested listeners.
@@ -135,14 +127,33 @@ module Brainguy
 
     private
 
+    def attach_to_single_event(name_or_handlers, callback_info, block)
+      message, receiver = extract_callback_info(callback_info)
+      if message
+        attach_callback(name_or_handlers, receiver, message)
+      else
+        attach_block_to_single_event(name_or_handlers, block)
+      end
+    end
+
+    def extract_callback_info(callback_info)
+      selector = callback_info[:send] or return nil
+      receiver = callback_info.fetch(:to) do
+        fail ArgumentError, "Must specify a receiver object with :to"
+      end
+      args     = Array(callback_info[:with])
+      message  = Array(selector).concat(args)
+      return message, receiver
+    end
+
     def attach_callback(name, receiver, message)
       callback = proc do
         receiver.public_send(*message)
       end
-      attach_to_single_event(name, callback)
+      attach_block_to_single_event(name, callback)
     end
 
-    def attach_to_single_event(event_name, block)
+    def attach_block_to_single_event(event_name, block)
       SingleEventSubscription.new(self, block, event_name).tap do
       |subscription|
         self << subscription
